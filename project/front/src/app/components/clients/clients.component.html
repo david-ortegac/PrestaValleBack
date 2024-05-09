@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <div class="section">
   <div class="row">
     <p-scrollPanel >
@@ -15,97 +16,115 @@
           <p-scrollPanel [style]="{ width: '100%', height: '400px' }" *ngIf="openSaveUpdate">
             <div class="card mb-3">
               <div class="card-body">
+=======
+<section class="section">
+  <ion-content class="ion-padding">
+    <div class="card">
+      <div class="card-body" style="border-color: black; border: 15px;">
 
-                <div class="pt-4 pb-2">
-                  <h5 class="card-title text-center pb-0 fs-4">Crear una cliente</h5>
+        <h5 class="card-title">Clientes</h5>
+
+        <div class="mb-3" *ngIf="!openSaveUpdate">
+          <button (click)="openCreateClient()" class="btn btn-success">Crear Cliente</button>
+        </div>
+        <div class="mb-3" *ngIf="openSaveUpdate">
+          <button (click)="closeCreateClient()" class="btn btn-danger">Cerrar</button>
+        </div>
+        <div *ngIf="openSaveUpdate" class="container-fluid">
+          <div class="card mb-3">
+            <div class="card-body">
+
+              <div class="pt-4 pb-2">
+                <h5 class="card-title text-center pb-0 fs-4">Crear una cliente</h5>
+              </div>
+>>>>>>> d8914f2 (ajustes)
+
+              <form [formGroup]="form" class="row g-3 needs-validation">
+
+                <div class="col-sm-3">
+                  <p-dropdown [options]="documentTypes" formControlName="document_type" optionLabel="name"
+                              [showClear]="true" placeholder="Tipo de documento" class="form-control"></p-dropdown>
                 </div>
 
-                <form [formGroup]="form" class="row g-3 needs-validation">
+                <div class="col-sm-3">
+                  <label class="form-label">Número de documento</label>
+                  <input formControlName="document_number" type="text" class="form-control"/>
+                </div>
 
-                  <div class="col-sm-3">
-                    <p-dropdown [options]="documentTypes" formControlName="document_type" optionLabel="name"
-                                [showClear]="true" placeholder="Tipo de documento" class="form-control"></p-dropdown>
-                  </div>
+                <div class="col-sm-3">
+                  <label class="form-label">Nombres</label>
+                  <input formControlName="name" type="text" name="name" class="form-control"
+                         required>
+                  <div class="invalid-feedback">Por favor digite los nombre</div>
+                </div>
 
-                  <div class="col-sm-3">
-                    <label class="form-label">Número de documento</label>
-                    <input formControlName="document_number" type="text" class="form-control"/>
-                  </div>
+                <div class="col-sm-3">
+                  <label class="form-label">Apellidos</label>
+                  <input formControlName="last_name" type="text" name="name" class="form-control"
+                         required>
+                  <div class="invalid-feedback">Por favor digite los apellidos</div>
+                </div>
 
-                  <div class="col-sm-3">
-                    <label class="form-label">Nombres</label>
-                    <input formControlName="name" type="text" name="name" class="form-control"
-                           required>
-                    <div class="invalid-feedback">Por favor digite los nombre</div>
-                  </div>
+                <div class="col-sm-3">
+                  <label class="form-label">Número celular</label>
+                  <input formControlName="phone" type="text" name="number" class="form-control"
+                         required>
+                  <div class="invalid-feedback">Por favor digite el celular</div>
+                </div>
 
-                  <div class="col-sm-3">
-                    <label class="form-label">Apellidos</label>
-                    <input formControlName="last_name" type="text" name="name" class="form-control"
-                           required>
-                    <div class="invalid-feedback">Por favor digite los apellidos</div>
-                  </div>
+                <div class="col-sm-3">
+                  <label class="form-label">Barrio</label>
+                  <input formControlName="neighborhood" type="text" name="name" class="form-control"
+                         required>
+                  <div class="invalid-feedback">Por favor digite el barrio</div>
+                </div>
 
-                  <div class="col-sm-3">
-                    <label class="form-label">Número celular</label>
-                    <input formControlName="phone" type="text" name="number" class="form-control"
-                           required>
-                    <div class="invalid-feedback">Por favor digite el celular</div>
-                  </div>
+                <div class="col-sm-3">
+                  <label class="form-label">Dirección</label>
+                  <input formControlName="address" type="text" name="name" class="form-control"
+                         required>
+                  <div class="invalid-feedback">Por favor digite la dirección</div>
+                </div>
 
-                  <div class="col-sm-3">
-                    <label class="form-label">Barrio</label>
-                    <input formControlName="neighborhood" type="text" name="name" class="form-control"
-                           required>
-                    <div class="invalid-feedback">Por favor digite el barrio</div>
-                  </div>
+                <div class="col-sm-3">
+                  <label class="form-label">Ciudad</label>
+                  <input formControlName="city" type="text" name="name" class="form-control"
+                         required>
+                  <div class="invalid-feedback">Por favor digite la ciudad</div>
+                </div>
 
-                  <div class="col-sm-3">
-                    <label class="form-label">Dirección</label>
-                    <input formControlName="address" type="text" name="name" class="form-control"
-                           required>
-                    <div class="invalid-feedback">Por favor digite la dirección</div>
-                  </div>
+                <div class="col-sm-3">
+                  <label class="form-label">Profesión</label>
+                  <input formControlName="profession" type="text" name="name" class="form-control"
+                         required>
+                  <div class="invalid-feedback">Por favor digite la profesión</div>
+                </div>
 
-                  <div class="col-sm-3">
-                    <label class="form-label">Ciudad</label>
-                    <input formControlName="city" type="text" name="name" class="form-control"
-                           required>
-                    <div class="invalid-feedback">Por favor digite la ciudad</div>
-                  </div>
+                <div class="col-sm-3">
+                  <label class="form-label">Notas</label>
+                  <input formControlName="notes" type="text" name="name" class="form-control"/>
+                  <div class="invalid-feedback">Por favor digite la nota</div>
+                </div>
 
-                  <div class="col-sm-3">
-                    <label class="form-label">Profesión</label>
-                    <input formControlName="profession" type="text" name="name" class="form-control"
-                           required>
-                    <div class="invalid-feedback">Por favor digite la profesión</div>
-                  </div>
+                <div class="col-sm-3">
+                  <label class="form-label">Calificación</label>
+                  <input formControlName="type" type="text" name="name" class="form-control"/>
+                  <div class="invalid-feedback">Por favor digite la calificación</div>
+                </div>
 
-                  <div class="col-sm-3">
-                    <label class="form-label">Notas</label>
-                    <input formControlName="notes" type="text" name="name" class="form-control"/>
-                    <div class="invalid-feedback">Por favor digite la nota</div>
-                  </div>
+                <div class="col-12">
+                  <button *ngIf="!updateButtom" class="btn btn-primary w-33" type="submit" [disabled]="!form.valid"
+                          (click)="createNewClient()">Guardar
+                  </button>
+                  <button *ngIf="updateButtom" class="btn btn-primary w-33" type="submit" [disabled]="!form.valid"
+                          (click)="update()">Actualizar
+                  </button>
+                </div>
 
-                  <div class="col-sm-3">
-                    <label class="form-label">Calificación</label>
-                    <input formControlName="type" type="text" name="name" class="form-control"/>
-                    <div class="invalid-feedback">Por favor digite la calificación</div>
-                  </div>
+              </form>
 
-                  <div class="col-12">
-                    <button *ngIf="!updateButtom" class="btn btn-primary w-33" type="submit" [disabled]="!form.valid"
-                            (click)="createNewClient()">Guardar
-                    </button>
-                    <button *ngIf="updateButtom" class="btn btn-primary w-33" type="submit" [disabled]="!form.valid"
-                            (click)="update()">Actualizar
-                    </button>
-                  </div>
-
-                </form>
-
-              </div>
             </div>
+<<<<<<< HEAD
           </p-scrollPanel>
 
           <ng-container>
@@ -218,3 +237,112 @@
     </p-scrollPanel>
   </div>
 </div>
+=======
+          </div>
+        </div>
+        <div style="display: flex; justify-content: center;" *ngIf="loading">
+          <p-progressSpinner ariaLabel="loading"></p-progressSpinner>
+        </div>
+
+        <!-- Table with stripped rows -->
+
+        <p-table class="table-striped table-condensed " [value]="clients" [tableStyle]="{ 'min-width': '50rem' }">
+
+          <h1 style="text-align: center;">CLIENTES</h1>
+
+          <ng-template pTemplate="header">
+
+            <tr>
+              <th style="min-width:7rem">
+                <div class="flex align-items-center">ID</div>
+              </th>
+              <th style="min-width:7rem">
+                <div class="flex align-items-center">T.Doc</div>
+              </th>
+              <th style="min-width:7rem">
+                <div class="flex align-items-center">#.Doc</div>
+              </th>
+              <th style="min-width:12rem">
+                <div class="flex align-items-center">Nombre</div>
+              </th>
+              <th style="min-width:12rem">
+                <div class="flex align-items-center">Apellido</div>
+              </th>
+              <th style="min-width:12rem">
+                <div class="flex align-items-center">Celular</div>
+              </th>
+              <th style="min-width:12rem">
+                <div class="flex align-items-center">Barrio</div>
+              </th>
+              <th style="min-width:12rem">
+                <div class="flex align-items-center">Dirrecion</div>
+              </th>
+              <th style="min-width:12rem">
+                <div class="flex align-items-center">Ciudad</div>
+              </th>
+              <th style="min-width:12rem">
+                <div class="flex align-items-center">Profesion</div>
+              </th>
+              <th style="min-width:12rem">
+                <div class="flex align-items-center">Notas</div>
+              </th>
+              <th style="min-width:12rem">
+                <div class="flex align-items-center">Calificacion</div>
+              </th>
+              <th style="min-width:12rem">
+                <div class="flex align-items-center">Creado por</div>
+              </th>
+              <th style="min-width:12rem">
+                <div class="flex align-items-center">Fecha creación</div>
+              </th>
+              <th style="min-width:12rem">
+                <div class="flex align-items-center">Actualizado por</div>
+              </th>
+              <th style="min-width:12rem">
+                <div class="flex align-items-center">Fecha actualización</div>
+              </th>
+              <th style="min-width:5rem">
+                <div class="flex align-items-center">Editar</div>
+              </th>
+            </tr>
+
+          </ng-template>
+
+          <ng-template pTemplate="body" let-client>
+            <tr>
+              <td>{{ client.id }}</td>
+              <td>{{ client.document_type }}</td>
+              <td>{{ client.document_number }}</td>
+              <td>{{ client.name }}</td>
+              <td>{{ client.last_name }}</td>
+              <td>{{ client.phone }}</td>
+              <td>{{ client.neighborhood }}</td>
+              <td>{{ client.address }}</td>
+              <td>{{ client.city }}</td>
+              <td>{{ client.profession }}</td>
+              <td>{{ client.notes }}</td>
+              <td>{{ client.type }}</td>
+              <td>{{ client.created_by.name }}</td>
+              <td>{{ client.created_at | date:'dd/MM/yyyy HH:mm:ss' }}</td>
+              <td>{{ client.modified_by.name }}</td>
+              <td>{{ client.updated_at | date:'dd/MM/yyyy HH:mm:ss' }}</td>
+              <td>
+                <p-button (click)="updateClient(client)" icon="pi pi-check"></p-button>
+              </td>
+
+            </tr>
+          </ng-template>
+        </p-table>
+
+        <div class="flex-auto">
+          <p-paginator (onPageChange)="onPageChange($event)" [first]="first" [totalRecords]="totalRecords"
+                       [rows]="row"></p-paginator>
+        </div>
+
+        <!-- End Table with stripped rows -->
+
+      </div>
+    </div>
+  </ion-content>
+</section>
+>>>>>>> d8914f2 (ajustes)

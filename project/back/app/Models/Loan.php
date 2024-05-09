@@ -47,6 +47,7 @@ class Loan extends Model
      *
      * @var array
      */
+<<<<<<< HEAD
     protected $fillable = [
         'route_id',
         'client_id',
@@ -65,6 +66,9 @@ class Loan extends Model
         'created_by',
         'modified_by'
     ];
+=======
+    protected $fillable = ['route_id', 'client_id', 'amount', 'paymentDays', 'paymentType', 'deposit', 'lastInstallment', 'remainingBalance', 'remainingAmount', 'daysPastDue', 'lastPayment', 'startDate', 'finalDate', 'created_by', 'modified_by'];
+>>>>>>> d8914f2 (ajustes)
 
     protected $hidden=[
         'route_id',
@@ -78,8 +82,12 @@ class Loan extends Model
      */
     public function client()
     {
+<<<<<<< HEAD
         return $this->belongsTo(\App\Models\Client::class, 'client_id', 'id')
             ->select(array('id', 'name', 'last_name'));
+=======
+        return $this->belongsTo(\App\Models\Client::class, 'client_id', 'id');
+>>>>>>> d8914f2 (ajustes)
     }
 
     /**
@@ -87,8 +95,12 @@ class Loan extends Model
      */
     public function createdBy()
     {
+<<<<<<< HEAD
         return $this->belongsTo(\App\Models\User::class, 'created_by', 'id')
             ->select(array('name', 'email'));
+=======
+        return $this->belongsTo(\App\Models\User::class, 'created_by', 'id');
+>>>>>>> d8914f2 (ajustes)
     }
 
     /**
@@ -96,8 +108,12 @@ class Loan extends Model
      */
     public function modifiedBy()
     {
+<<<<<<< HEAD
         return $this->belongsTo(\App\Models\User::class, 'modified_by', 'id')
             ->select(array('name', 'email'));
+=======
+        return $this->belongsTo(\App\Models\User::class, 'modified_by', 'id');
+>>>>>>> d8914f2 (ajustes)
     }
 
     /**
@@ -105,8 +121,12 @@ class Loan extends Model
      */
     public function route()
     {
+<<<<<<< HEAD
         return $this->belongsTo(\App\Models\Route::class, 'route_id', 'id')
             ->select(array('id', 'name'));
+=======
+        return $this->belongsTo(\App\Models\Route::class, 'route_id', 'id');
+>>>>>>> d8914f2 (ajustes)
     }
 
     /**
