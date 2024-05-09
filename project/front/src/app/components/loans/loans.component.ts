@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import {Component, OnInit} from '@angular/core';
 import {ClientsService} from "../../services/clients/clients.service";
 import {RoutesService} from "../../services/routes/routes.service";
@@ -9,6 +10,12 @@ import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {DropdownChangeEvent} from "primeng/dropdown";
 import {LoansService} from "../../services/loans/loans.service";
 import {Loan} from "../../models/Loan";
+=======
+import {Component} from '@angular/core';
+import {ClientsService} from "../../services/clients/clients.service";
+import {RoutesService} from "../../services/routes/routes.service";
+import {Route} from "../../models/Route";
+>>>>>>> 8369093 (inicio)
 
 @Component({
   selector: 'app-loans',
@@ -17,15 +24,20 @@ import {Loan} from "../../models/Loan";
 })
 export class LoansComponent implements OnInit {
   search: boolean = false;
+<<<<<<< HEAD
   routes: Route[] = [];
   loans: Loan[]=[]
   formInicial: FormGroup;
   selectedRouteItem: Route | undefined
   currentDate: string = "";
+=======
+  routes: Route[]=[];
+>>>>>>> 8369093 (inicio)
 
   constructor(
     private readonly clientsService: ClientsService,
     private readonly routesService: RoutesService,
+<<<<<<< HEAD
     private readonly loansService: LoansService
   ) {
     this.formInicial = new FormGroup({
@@ -65,6 +77,14 @@ export class LoansComponent implements OnInit {
       });
     });
   }
+=======
+  ) {
+    this.routesService.getAllRoutesWithoutPaged().subscribe(res=>{
+      console.log(res)
+      this.routes = res;
+    })
+  }
+>>>>>>> 8369093 (inicio)
 
   openSearchByDocument() {
     this.search = true;

@@ -40,6 +40,7 @@
             </div>
           </div>
 
+<<<<<<< HEAD
           <div class="row" *ngIf="false">
             <div class="col-sm-4">
               <input type="text" class="form-control" placeholder="Buscar por número de documento"
@@ -66,6 +67,43 @@
             </div>
           </ng-container>
 
+=======
+          <!-- Botón para agregar elementos -->
+          <div class="row mb-3">
+            <div class="col-mb-6">
+              <div class="input-group">
+                <div class="col-sm-4">
+                  <input type="text" class="form-control" placeholder="Buscar por número de documento"
+                         aria-label="Buscar por ID" aria-describedby="button-buscar">
+                </div>
+                <div class="col-sm-4">
+                  <input type="text" class="form-control" placeholder="Buscar por número de documento"
+                         aria-label="Buscar por ID" aria-describedby="button-buscar">
+                </div>
+                <div class="col-sm-4">
+                  <button class="btn btn-outline-secondary" (click)="openSearchByDocument()" type="button">Buscar
+                  </button>
+                </div>
+              </div>
+
+              <ng-container class="col-mb-12" *ngIf="search">
+                <span>Este texto es cualquiera</span>
+                <div class="col-sm-3">
+                  <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#agregarModal">
+                    Agregar
+                  </button>
+                </div>
+                <div class="col-sm-3">
+                  <button (click)="closeSearchByDocument()" type="button" class="btn btn-danger" data-toggle="modal"
+                          data-target="#agregarModal">
+                    Cerrar
+                  </button>
+                </div>
+              </ng-container>
+            </div>
+          </div>
+
+>>>>>>> 8369093 (inicio)
           <!-- Modal para agregar elemento -->
           <div class="modal fade" id="agregarModal" tabindex="-1" aria-labelledby="exampleModalLabel"
                aria-hidden="true">
@@ -88,6 +126,7 @@
             </div>
           </div>
 
+<<<<<<< HEAD
           <p-table
             [scrollable]="true"
             scrollHeight="400px"
@@ -134,3 +173,82 @@
     </div>
   </div>
 </div>
+=======
+          <!-- Tabla -->
+          <div class="table-responsive">
+            <table class="table-loans">
+              <thead>
+              <tr>
+
+                <th style="min-width:4rem" class="align-middle text-center">
+                  <div class="flex align-items-center">Ruta</div>
+                </th>
+                <th style="min-width:10rem" class="align-middle text-center">
+                  <div class="flex align-items-center">Nombre</div>
+                </th>
+                <th style="min-width:4rem" class="align-middle text-center">
+                  <div class="flex align-items-center">Monto</div>
+                </th>
+                <th style="min-width:4rem" class="align-middle text-center">
+                  <div class="flex align-items-center">Dias Cobro</div>
+                </th>
+                <th style="min-width:4rem" class="align-middle text-center">
+                  <div class="flex align-items-center">Cobro Diario</div>
+                </th>
+                <th style="min-width:4rem" class="align-middle text-center">
+                  <div class="flex align-items-center">Abono</div>
+                </th>
+                <th style="min-width:4rem" class="align-middle text-center">
+                  <div class="flex align-items-center">Ultima Cuota</div>
+                </th>
+                <th style="min-width:4rem" class="align-middle text-center">
+                  <div class="flex align-items-center">Pico</div>
+                </th>
+                <th style="min-width:4rem" class="align-middle text-center">
+                  <div class="flex align-items-center">Saldo</div>
+                </th>
+                <th style="min-width:4rem" class="align-middle text-center">
+                  <div class="flex align-items-center">Mora Dias</div>
+                </th>
+                <th style="min-width:4rem" class="align-middle text-center">
+                  <div class="flex align-items-center">Ultimo Pago</div>
+                </th>
+                <th style="min-width:4rem" class="align-middle text-center">
+                  <div class="flex align-items-center">Inicia</div>
+                </th>
+                <th style="min-width:4rem" class="align-middle text-center">
+                  <div class="flex align-items-center">Termina</div>
+                </th>
+                <th style="min-width:4rem" class="align-middle text-center">
+                  <div class="flex align-items-center">Observ</div>
+                </th>
+              </tr>
+              </thead>
+              <tbody>
+              <!-- Aquí puedes agregar filas con datos -->
+              <tr>
+                <td>No ren</td>
+                <td>Ruta 1</td>
+                <td>Pedro Perez</td>
+                <td>200</td>
+                <td>Vier</td>
+                <td>10x25</td>
+                <td>8</td>
+                <td>8</td>
+                <td>Ejemplo</td>
+                <td>Ejemplo</td>
+                <td>Ejemplo</td>
+                <td>Ejemplo</td>
+                <td>Ejemplo</td>
+                <td>Ejemplo</td>
+              </tr>
+              <!-- Aquí puedes agregar filas con datos -->
+            </table>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+>>>>>>> 8369093 (inicio)
