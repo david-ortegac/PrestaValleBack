@@ -43,7 +43,7 @@ export class LoansComponent implements OnInit {
 <<<<<<< HEAD
   routes: Route[] = [];
   loans: Loan[]=[]
-  formInicial: FormGroup;
+  form: FormGroup;
   selectedRouteItem: Route | undefined
   currentDate: string = "";
 =======
@@ -73,7 +73,7 @@ export class LoansComponent implements OnInit {
 <<<<<<< HEAD
     private readonly loansService: LoansService
   ) {
-    this.formInicial = new FormGroup({
+    this.form = new FormGroup({
       sede: new FormControl(''),
       name: new FormControl('', [Validators.minLength(3), Validators.required]),
     });
@@ -87,12 +87,37 @@ export class LoansComponent implements OnInit {
   }
 
   getAllLoansByRouteId(id: number){
-    this.loansService.getLoansByRouteId(id).subscribe(res=>{
-      this.loans = res.data!;
-      console.log(this.loans)
-    }, err=>{
-      console.log(err)
-    })
+    this.loansService.getLoansByRouteId(id).subscribe(res=> {
+      res.data.forEach(el => {
+        const loansDecrypted: Loan={
+          id: el.id,
+          route: {
+            id: el.route?.id
+          },
+          client: {
+            id: el.client?.id,
+            name: decrypt(el.client?.name!),
+            last_name: decrypt(el.client?.last_name!),
+          },
+          order: el.order,
+          amount: el.amount,
+          paymentDays: el.paymentDays,
+          paymentType: el.paymentType,
+          deposit: el.deposit,
+          lastInstallment: el.lastInstallment,
+          remainingBalance: el.remainingBalance,
+          remainingAmount: el.remainingAmount,
+          daysPastDue: el.daysPastDue,
+          lastPayment: el.lastPayment,
+          startDate: el.startDate,
+          finalDate: el.finalDate,
+          status: el.status,
+          created_by: el.created_by,
+          modified_by: el.modified_by,
+        }
+        this.loans.push(loansDecrypted);
+      })
+    });
   }
 
   getAllRoutes() {
