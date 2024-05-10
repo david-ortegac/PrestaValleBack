@@ -27,6 +27,7 @@ class LoanFactory extends Factory
             'route_id' => $this->faker->numberBetween(1, 15),
 >>>>>>> ce2e761 (Ajustes loans front y back)
             'client_id' => $this->faker->numberBetween(1,300),
+            'order' => $this->faker->numberBetween(1, 30),
             'amount' => $this->faker->randomElement(['120000', '180000', '220000', '250000']),
             'paymentDays' => $this->faker->randomElement(['L-S', 'V', 'L-V']),
             'paymentType' => $this->faker->randomElement(['9x7', '5x24', '9x25','12x15']),

@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Loan;
 use App\Http\Requests\StoreLoansRequest;
 use App\Http\Requests\UpdateLoansRequest;
+use App\Models\Loan;
 use Symfony\Component\HttpFoundation\Response;
 
 class LoansController extends Controller
@@ -20,14 +20,6 @@ class LoansController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
      * Store a newly created resource in storage.
      */
     public function store(StoreLoansRequest $request)
@@ -40,7 +32,8 @@ class LoansController extends Controller
      */
     public function show(int $routeId)
     {
-        $loans = Loan::where('route_id', $routeId)->get();
+        $loans = Loan::where('route_id', $routeId)->orderByDesc('order')->get();
+        $count = $loans->count();
 
         if (isset($loans)) {
             foreach ($loans as $loan) {
@@ -49,10 +42,10 @@ class LoansController extends Controller
                 $loan->created_by = $loan->createdBy;
                 $loan->modified_by = $loan->modifiedBy;
             }
-            return response()->json(
-
-                $loans, Response::HTTP_OK
-            );
+            return response()->json([
+                'total' => $count,
+                'data' => $loans,
+            ], Response::HTTP_OK);
         } else {
             return response()->json([
                 'status' => Response::HTTP_BAD_REQUEST,
@@ -63,14 +56,6 @@ class LoansController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Loans $loans)
-    {
-        //
-    }
-
-    /**
      * Update the specified resource in storage.
      */
     public function update(UpdateLoansRequest $request, Loans $loans)
@@ -78,11 +63,4 @@ class LoansController extends Controller
         //
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Loans $loans)
-    {
-        //
-    }
 }

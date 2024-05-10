@@ -1,3 +1,4 @@
+<script src="../../utils/pageable.ts"></script>
 <div class="section">
   <div class="row">
     <div class="col-lg-12">
@@ -222,6 +223,7 @@
 =======
 >>>>>>> ce2e761 (Ajustes loans front y back)
           <p-table
+            [value]="loans"
             [scrollable]="true"
             scrollHeight="400px"
             [resizableColumns]="true"
@@ -243,20 +245,21 @@
                 <th>Reencauche</th>
               </tr>
             </ng-template>
-            <ng-template pTemplate="body" let-customer>
+            <ng-template pTemplate="body" let-loan>
               <tr>
-                <td>{{ customer.name }}</td>
-                <td>{{ customer.country.name }}</td>
-                <td>{{ customer.company }}</td>
-                <td>{{ customer.representative.name }}</td>
-                <td>{{ customer.representative.name }}</td>
-                <td>{{ customer.representative.name }}</td>
-                <td>{{ customer.representative.name }}</td>
-                <td>{{ customer.representative.name }}</td>
-                <td>{{ customer.representative.name }}</td>
-                <td>{{ customer.representative.name }}</td>
-                <td>{{ customer.representative.name }}</td>
-                <td>{{ customer.representative.name }}</td>
+                <td>{{ loan.order }}</td>
+                <td>{{ loan.client.name }} {{loan.client.last_name}}</td>
+                <td>{{ loan.amount }}</td>
+                <td>{{ loan.paymentDays }}</td>
+                <td>{{ loan.paymentType }}</td>
+                <td>{{ loan.deposit }}</td>
+                <td>{{ loan.lastInstallment }}</td>
+                <td>{{ loan.remainingAmount }}</td>
+                <td></td>
+                <td>{{ loan.lastPayment }}</td>
+                <td>{{ loan.remainingBalance }}</td>
+                <td>
+                  <button class="btn btn-info">Si</button></td>
               </tr>
             </ng-template>
           </p-table>

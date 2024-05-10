@@ -21,6 +21,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('route_id')->references('id')->on('routes');
             $table->foreignId('client_id')->references('id')->on('clients');
+            $table->integer('order'); //Orden de cobro
             $table->decimal('amount'); //MONTO
             $table->string('paymentDays'); //fecha pago
             $table->string('paymentType'); //tipo de pago diario o mensual (MODALIDAD)

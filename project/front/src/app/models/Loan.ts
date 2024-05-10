@@ -7,6 +7,7 @@ export interface Loan{
   id?: number;
   route?:Route,
   client?:Client,
+  order?:number,
   amount?:number,
   paymentDays?:string,
   paymentType?:string,

@@ -4,6 +4,7 @@ import {environment} from "../../../environments/environment";
 import {decrypt} from "../../utils/util-encrypt";
 import {Observable} from "rxjs";
 import {Loan} from "../../models/Loan";
+import {CustomLoans} from "../../utils/customLoans";
 
 @Injectable({
   providedIn: 'root'
@@ -27,8 +28,9 @@ export class LoansService {
     }
   }
 
-  getLoansByRouteId(routeId: number): Observable<Loan[]> {
-    return this.httpClient.get<Loan[]>(this.url + 'loans/' + routeId, {
+  getLoansByRouteId(routeId: number): Observable<CustomLoans<Loan[]>> {
+    this.validateAndDecryptToken();
+    return this.httpClient.get<CustomLoans<Loan[]>>(this.url + 'loans/'+routeId, {
       headers: {
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${this.tk}`
