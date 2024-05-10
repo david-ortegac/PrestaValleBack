@@ -281,30 +281,6 @@
             ],
             "scripts": []
           }
-        },
-        "ionic-cordova-serve": {
-          "builder": "@ionic/angular-toolkit:cordova-serve",
-          "options": {
-            "cordovaBuildTarget": "front:ionic-cordova-build",
-            "devServerTarget": "front:serve"
-          },
-          "configurations": {
-            "production": {
-              "cordovaBuildTarget": "front:ionic-cordova-build:production",
-              "devServerTarget": "front:serve:production"
-            }
-          }
-        },
-        "ionic-cordova-build": {
-          "builder": "@ionic/angular-toolkit:cordova-build",
-          "options": {
-            "browserTarget": "front:build"
-          },
-          "configurations": {
-            "production": {
-              "browserTarget": "front:build:production"
-            }
-          }
         }
       }
     }

@@ -18,10 +18,14 @@ class LoanFactory extends Factory
     {
         return [
 <<<<<<< HEAD
+<<<<<<< HEAD
             'route_id' => $this->faker->numberBetween(1, 15),
 =======
             'route_id' => $this->faker->unique()->numberBetween(1, 15),
 >>>>>>> b9da2c2 (ajustes para front y back)
+=======
+            'route_id' => $this->faker->numberBetween(1, 15),
+>>>>>>> ce2e761 (Ajustes loans front y back)
             'client_id' => $this->faker->numberBetween(1,300),
             'amount' => $this->faker->randomElement(['120000', '180000', '220000', '250000']),
             'paymentDays' => $this->faker->randomElement(['L-S', 'V', 'L-V']),
@@ -35,9 +39,13 @@ class LoanFactory extends Factory
             'startDate' => '2024-05-06',
             'finalDate' => '2024-05-30',
 <<<<<<< HEAD
+<<<<<<< HEAD
             'status'=> $this->faker->randomElement(['true', 'false']),
 =======
 >>>>>>> b9da2c2 (ajustes para front y back)
+=======
+            'status'=> $this->faker->randomElement(['true', 'false']),
+>>>>>>> ce2e761 (Ajustes loans front y back)
             'created_by' => 1,
             'modified_by' => 1,
         ];
