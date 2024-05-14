@@ -36,6 +36,7 @@ import { DropdownModule } from 'primeng/dropdown';
 import {LoansComponent} from "./components/loans/loans.component";
 import {FloatLabelModule} from "primeng/floatlabel";
 import {CalendarModule} from "primeng/calendar";
+import {PanelModule} from "primeng/panel";
 
 
 @NgModule({
@@ -54,31 +55,32 @@ import {CalendarModule} from "primeng/calendar";
     ClientsComponent,
     LoansComponent
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    BrowserAnimationsModule,
-    TableModule,
-    HttpClientModule,
-    InputTextModule,
-    PasswordModule,
-    DropdownModule,
-    ReactiveFormsModule,
-    ScrollPanelModule,
-    PaginatorModule,
-    FloatLabelModule,
-    NgxPaginationModule,
-    ProgressSpinnerModule,
-    ButtonModule,
-    IonicModule.forRoot({}),
-    ServiceWorkerModule.register('ngsw-worker.js', {
-      enabled: !isDevMode(),
-      // Register the ServiceWorker as soon as the application is stable
-      // or after 30 seconds (whichever comes first).
-      registrationStrategy: 'registerWhenStable:30000'
-    }),
-    CalendarModule,
-  ],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        BrowserAnimationsModule,
+        TableModule,
+        HttpClientModule,
+        InputTextModule,
+        PasswordModule,
+        DropdownModule,
+        ReactiveFormsModule,
+        ScrollPanelModule,
+        PaginatorModule,
+        FloatLabelModule,
+        NgxPaginationModule,
+        ProgressSpinnerModule,
+        ButtonModule,
+        IonicModule.forRoot({}),
+        ServiceWorkerModule.register('ngsw-worker.js', {
+            enabled: !isDevMode(),
+            // Register the ServiceWorker as soon as the application is stable
+            // or after 30 seconds (whichever comes first).
+            registrationStrategy: 'registerWhenStable:30000'
+        }),
+        CalendarModule,
+        PanelModule,
+    ],
   providers: [],
   bootstrap: [AppComponent]
 })

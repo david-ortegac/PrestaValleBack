@@ -28,7 +28,7 @@ export class LoansService {
     }
   }
 
-  getLoansByRouteId(routeId: number): Observable<CustomLoans<Loan[]>> {
+  getLoansByRouteId(routeId: number | undefined): Observable<CustomLoans<Loan[]>> {
     this.validateAndDecryptToken();
     return this.httpClient.get<CustomLoans<Loan[]>>(this.url + 'loans/'+routeId, {
       headers: {

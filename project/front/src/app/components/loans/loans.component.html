@@ -1,11 +1,29 @@
-<script src="../../utils/pageable.ts"></script>
-<div class="section">
-  <div class="row">
-    <div class="col-lg-12">
-      <div class="card">
-        <div class="card-body" style="border-color: black; border: 15px;">
-          <h5 class="card-title">Cobros</h5>
+<p-panel header="COBROS">
+
+  <!-- Botón para agregar elementos -->
+  <div class="row mb-3 px-3">
+    <div class="row mb-4">
+      <div class="col-sm-4 mt-3">
+        <p-floatLabel>
+          <p-dropdown
+            (onChange)="selectedRoute($event)"
+            [options]="routes"
+            optionLabel="name"
+            [(ngModel)]="selectedRouteItem"
+            [showClear]="true"
+            [filter]="true"
+            filterBy="name"
+            placeholder="Seleccione una ruta"
+            inputId="float-label"
+          />
+          <label id="select-label">Seleccione una ruta</label>
+        </p-floatLabel>
+      </div>
+      <div class="col-sm-6 mt-3">
+        <div class="h4" *ngIf="selectedRouteItem">
+          Sede: {{ selectedRouteItem?.sede?.name }}, ruta: {{ selectedRouteItem?.name }}
         </div>
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 =======
@@ -266,9 +284,93 @@
 
         </div>
 
+=======
+      </div>
+      <div class="col-sm-2 mt-3">
+        <p-floatLabel>
+          <p-calendar
+            (onSelect)="dateChanged($event)"
+            [(ngModel)]="currentDate"
+            id="current-date"/>
+          <label for="current-date">Fecha Planilla</label>
+        </p-floatLabel>
+>>>>>>> 7bac5d3 (ajustes loans formarray)
       </div>
     </div>
+
+    <div class="row" *ngIf="false">
+      <div class="col-sm-4">
+        <input type="text" class="form-control" placeholder="Buscar por número de documento"
+               aria-label="Buscar por ID" aria-describedby="button-buscar">
+      </div>
+      <div class="col-sm-4">
+        <button class="btn btn-outline-secondary" (click)="openSearchByDocument()" type="button">Buscar
+        </button>
+      </div>
+    </div>
+
+    <ng-container class="col-mb-12" *ngIf="search">
+      <span>Este texto es cualquiera</span>
+      <div class="col-sm-3">
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#agregarModal">
+          Agregar
+        </button>
+      </div>
+      <div class="col-sm-3">
+        <button (click)="closeSearchByDocument()" type="button" class="btn btn-danger" data-toggle="modal"
+                data-target="#agregarModal">
+          Cerrar
+        </button>
+      </div>
+    </ng-container>
+
+    <ng-container class="col-mb-12">
+      <div class="col-sm-3">
+        <button type="button" class="btn btn-primary" (click)="addLoans()" [disabled]="!form.valid">
+          Agregar
+        </button>
+      </div>
+    </ng-container>
+
+    <p-scrollPanel [style]="{ width: '100%', height: '350px' }">
+      <form [formGroup]="form">
+        <table>
+          <thead>
+          <tr>
+            <th>Número</th>
+            <th>Nombres</th>
+            <th>Monto</th>
+            <th>Cobro Diario</th>
+            <th>Días Crédito</th>
+            <th>Valor Abono</th>
+            <th>Pico</th>
+            <th>Fecha Pago</th>
+            <th>Días Mora</th>
+            <th>Saldo</th>
+            <th>Cuotas</th>
+          </tr>
+          </thead>
+          <tbody formArrayName="loansFormArray">
+          <tr *ngFor="let item of loansFormArray.controls; let i = index" [formGroupName]="i">
+            <td><p-inputNumber formControlName="nro" placeholder="Número"/></td>
+            <td><input type="text" pInputText formControlName="nombres" placeholder="Nombres"></td>
+            <td><p-inputNumber formControlName="monto" placeholder="Monto"/></td>
+            <td><input type="text" pInputText formControlName="cobroDiario" placeholder="Cobro Diario"></td>
+            <td><input type="text" pInputText formControlName="diasCredito" placeholder="Días Crédito"></td>
+            <td><p-inputNumber formControlName="valorAbono" placeholder="Valor Abono"/></td>
+            <td><p-inputNumber formControlName="pico" placeholder="Pico"/></td>
+            <td><input type="text" pInputText formControlName="fechaPago" placeholder="Fecha Pago"/></td>
+            <td><p-inputNumber formControlName="diasMora" placeholder="Días Mora"/></td>
+            <td><p-inputNumber formControlName="saldo" placeholder="Saldo" /></td>
+            <td><p-inputNumber formControlName="cuotas" placeholder="Cuotas"/></td>
+          </tr>
+          </tbody>
+        </table>
+
+      </form>
+    </p-scrollPanel>
   </div>
+<<<<<<< HEAD
 </div>
 =======
           <!-- Tabla -->
@@ -354,3 +456,9 @@
 =======
 </div>
 >>>>>>> d8914f2 (ajustes)
+=======
+
+</p-panel>
+
+
+>>>>>>> 7bac5d3 (ajustes loans formarray)

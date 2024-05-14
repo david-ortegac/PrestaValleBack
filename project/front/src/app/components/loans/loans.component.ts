@@ -6,10 +6,8 @@ import {Component, OnInit} from '@angular/core';
 import {ClientsService} from "../../services/clients/clients.service";
 import {RoutesService} from "../../services/routes/routes.service";
 import {Route} from "../../models/Route";
-import {Sede} from "../../models/Sede";
-import {SedesService} from "../../services/sedes/sedes.service";
 import {decrypt} from "../../utils/util-encrypt";
-import {FormControl, FormGroup, Validators} from "@angular/forms";
+import {FormArray, FormBuilder, FormControl, FormGroup, FormGroupName, Validators} from "@angular/forms";
 import {DropdownChangeEvent} from "primeng/dropdown";
 import {LoansService} from "../../services/loans/loans.service";
 import {Loan} from "../../models/Loan";
@@ -42,10 +40,11 @@ export class LoansComponent implements OnInit {
   search: boolean = false;
 <<<<<<< HEAD
   routes: Route[] = [];
-  loans: Loan[]=[]
+  loans: Loan[] = []
   form: FormGroup;
   selectedRouteItem: Route | undefined
   currentDate: string = "";
+<<<<<<< HEAD
 =======
   routes: Route[]=[];
 >>>>>>> 8369093 (inicio)
@@ -64,6 +63,9 @@ export class LoansComponent implements OnInit {
   selectedRouteItem: Route | undefined
   currentDate: string = "";
 >>>>>>> ce2e761 (Ajustes loans front y back)
+=======
+  selectedDate: Date = new Date();
+>>>>>>> 7bac5d3 (ajustes loans formarray)
 
   constructor(
     private readonly clientsService: ClientsService,
@@ -71,38 +73,67 @@ export class LoansComponent implements OnInit {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     private readonly loansService: LoansService
+=======
+    private readonly loansService: LoansService,
+    private fb: FormBuilder
+>>>>>>> 7bac5d3 (ajustes loans formarray)
   ) {
     this.form = new FormGroup({
-      sede: new FormControl(''),
-      name: new FormControl('', [Validators.minLength(3), Validators.required]),
+      loansFormArray: new FormArray([])
     });
     this.getAllRoutes();
+  }
+
+  get loansFormArray() {
+    return this.form.get('loansFormArray') as FormArray;
+  }
+
+  itemLoan() {
+    return this.fb.group({
+      nro: new FormControl('', [Validators.required]),
+      nombres: new FormControl('', [Validators.required]),
+      monto: new FormControl('', [Validators.required]),
+      cobroDiario: new FormControl('', [Validators.required]),
+      diasCredito: new FormControl('', [Validators.required]),
+      valorAbono: new FormControl('', [Validators.required]),
+      pico: new FormControl('', [Validators.required]),
+      fechaPago: new FormControl('', [Validators.required]),
+      diasMora: new FormControl('', [Validators.required]),
+      saldo: new FormControl('', [Validators.required]),
+      cuotas: new FormControl('', [Validators.required]),
+    })
+  }
+
+  addLoans() {
+    this.loansFormArray.push(this.itemLoan());
+  }
+
+  deleteLoans(indexLoan: number) {
+    this.loansFormArray.removeAt(indexLoan);
+  }
+
+  onSubmit() {
+    console.log(this.loansFormArray.value);
   }
 
   ngOnInit(): void {
     const today = new Date();
     today.setMonth(today.getMonth() + 1)
-    this.currentDate = +today.getMonth() + '/' + today.getDate() + '/' + today.getFullYear();
+    this.currentDate = today.getMonth() + '/' + today.getDate() + '/' + today.getFullYear();
   }
 
-  getAllLoansByRouteId(id: number){
-    this.loansService.getLoansByRouteId(id).subscribe(res=> {
+  getAllLoansByRouteId(id: number | undefined) {
+    this.loansService.getLoansByRouteId(id).subscribe(res => {
+      console.log(res.data)
       res.data.forEach(el => {
-        const loansDecrypted: Loan={
-          id: el.id,
-          route: {
-            id: el.route?.id
-          },
+        const loansDecrypted: Loan = {
           client: {
             id: el.client?.id,
             name: decrypt(el.client?.name!),
             last_name: decrypt(el.client?.last_name!),
           },
-          order: el.order,
-          amount: el.amount,
-          paymentDays: el.paymentDays,
-          paymentType: el.paymentType,
           deposit: el.deposit,
           lastInstallment: el.lastInstallment,
           remainingBalance: el.remainingBalance,
@@ -112,10 +143,23 @@ export class LoansComponent implements OnInit {
           startDate: el.startDate,
           finalDate: el.finalDate,
           status: el.status,
-          created_by: el.created_by,
-          modified_by: el.modified_by,
         }
-        this.loans.push(loansDecrypted);
+
+
+        const loansFromBack = this.fb.group({
+          nro: new FormControl(el.order),
+          nombres: new FormControl(decrypt(el.client?.last_name!)+", "+ decrypt(el.client?.name!)),
+          monto: new FormControl(el.amount),
+          cobroDiario: new FormControl(el.paymentType),
+          diasCredito: new FormControl(el.paymentDays),
+          valorAbono: new FormControl(el.deposit),
+          pico: new FormControl(''),
+          fechaPago: new FormControl(this.selectedDate),
+          diasMora: new FormControl(el.daysPastDue),
+          saldo: new FormControl(''),
+          cuotas: new FormControl(''),
+        })
+        this.loansFormArray.push(loansFromBack);
       })
     });
   }
@@ -197,10 +241,11 @@ export class LoansComponent implements OnInit {
 =======
 >>>>>>> ce2e761 (Ajustes loans front y back)
     this.selectedRouteItem = event.value;
-    this.getAllLoansByRouteId(this.selectedRouteItem?.id!);
+    this.getAllLoansByRouteId(this.selectedRouteItem?.id);
   }
 
   dateChanged(event: Date) {
+<<<<<<< HEAD
     console.log(new Date(event))
 <<<<<<< HEAD
 =======
@@ -208,6 +253,10 @@ export class LoansComponent implements OnInit {
 >>>>>>> d8914f2 (ajustes)
 =======
 >>>>>>> ce2e761 (Ajustes loans front y back)
+=======
+    this.selectedDate = event;
+>>>>>>> 7bac5d3 (ajustes loans formarray)
   }
+
 }
 
