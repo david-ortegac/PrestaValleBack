@@ -14,10 +14,10 @@
   "private": true,
   "dependencies": {
     "@angular/animations": "^17.2.4",
-    "@angular/common": "^17.2.4",
-    "@angular/compiler": "^17.2.4",
-    "@angular/core": "^17.2.4",
-    "@angular/forms": "^17.2.4",
+    "@angular/common": "^17.3.8",
+    "@angular/compiler": "^17.3.8",
+    "@angular/core": "^17.3.8",
+    "@angular/forms": "^17.3.8",
     "@angular/platform-browser": "^17.2.4",
     "@angular/platform-browser-dynamic": "^17.2.4",
     "@angular/router": "^17.2.4",
@@ -35,9 +35,9 @@
     "ngx-pagination": "^6.0.3",
     "ngx-spinner": "^16.0.2",
     "primeicons": "^6.0.1",
-    "primeng": "^17.10.0",
+    "primeng": "^17.16.1",
     "rxjs": "~7.8.0",
-    "sweetalert2": "^11.4.8",
+    "sweetalert2": "^11.6.13",
     "zone.js": "~0.14.4"
   },
   "devDependencies": {

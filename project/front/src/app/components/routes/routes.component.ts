@@ -116,7 +116,6 @@ export class RoutesComponent {
     this.letUpdateRoute = route;
   }
 
-
   openCreateRoute() {
     this.openSaveUpdate = true
   }

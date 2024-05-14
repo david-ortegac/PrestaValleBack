@@ -10,8 +10,8 @@
             [options]="routes"
             optionLabel="name"
             [(ngModel)]="selectedRouteItem"
-            [showClear]="true"
-            [filter]="true"
+            [showClear]="false"
+            [filter]="false"
             filterBy="name"
             placeholder="Seleccione una ruta"
             inputId="float-label"
@@ -21,7 +21,7 @@
       </div>
       <div class="col-sm-6 mt-3">
         <div class="h4" *ngIf="selectedRouteItem">
-          Sede: {{ selectedRouteItem?.sede?.name }}, ruta: {{ selectedRouteItem?.name }}
+          Sede: {{ selectedRouteItem?.sede?.name! }}, ruta: {{ selectedRouteItem?.name! }}
         </div>
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -352,17 +352,31 @@
           </thead>
           <tbody formArrayName="loansFormArray">
           <tr *ngFor="let item of loansFormArray.controls; let i = index" [formGroupName]="i">
-            <td><p-inputNumber formControlName="nro" placeholder="Número"/></td>
+            <td>
+              <p-inputNumber formControlName="nro" placeholder="Número"/>
+            </td>
             <td><input type="text" pInputText formControlName="nombres" placeholder="Nombres"></td>
-            <td><p-inputNumber formControlName="monto" placeholder="Monto"/></td>
+            <td>
+              <p-inputNumber formControlName="monto" placeholder="Monto"/>
+            </td>
             <td><input type="text" pInputText formControlName="cobroDiario" placeholder="Cobro Diario"></td>
             <td><input type="text" pInputText formControlName="diasCredito" placeholder="Días Crédito"></td>
-            <td><p-inputNumber formControlName="valorAbono" placeholder="Valor Abono"/></td>
-            <td><p-inputNumber formControlName="pico" placeholder="Pico"/></td>
+            <td>
+              <p-inputNumber formControlName="valorAbono" placeholder="Valor Abono"/>
+            </td>
+            <td>
+              <p-inputNumber formControlName="pico" placeholder="Pico"/>
+            </td>
             <td><input type="text" pInputText formControlName="fechaPago" placeholder="Fecha Pago"/></td>
-            <td><p-inputNumber formControlName="diasMora" placeholder="Días Mora"/></td>
-            <td><p-inputNumber formControlName="saldo" placeholder="Saldo" /></td>
-            <td><p-inputNumber formControlName="cuotas" placeholder="Cuotas"/></td>
+            <td>
+              <p-inputNumber formControlName="diasMora" placeholder="Días Mora"/>
+            </td>
+            <td>
+              <p-inputNumber formControlName="saldo" placeholder="Saldo"/>
+            </td>
+            <td>
+              <p-inputNumber formControlName="cuotas" placeholder="Cuotas"/>
+            </td>
           </tr>
           </tbody>
         </table>
