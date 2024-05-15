@@ -39,7 +39,7 @@ class LoansController extends Controller
      */
     public function show(int $routeId)
     {
-        $loans = Loan::where('route_id', $routeId)->orderBy('order')->orderBy('status')->get();
+        $loans = Loan::where('route_id', $routeId)->orderByDesc('status')->orderBy('order')->get();
         $count = $loans->count();
 
         if (isset($loans)) {

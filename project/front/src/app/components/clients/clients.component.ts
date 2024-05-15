@@ -182,4 +182,31 @@ export class ClientsComponent {
     ]
   }
 
+  encriptar() {
+    this.clientsService.getAllClientsWithoutPaginated().subscribe(res => {
+      res.forEach(client => {
+        if (client.name?.length! < 15){
+          let cryptClient: Client = {
+            id: client.id,
+            document_type: client.document_type!,
+            document_number: encrypt(client.document_number!),
+            name: encrypt(client.name!),
+            last_name: encrypt(client.last_name!),
+            phone: encrypt(client.phone!),
+            neighborhood: encrypt(client.neighborhood!),
+            address: encrypt(client.address!),
+            city: encrypt(client.city!),
+            profession: encrypt(client.profession!),
+            notes: encrypt(client.notes!),
+            type: encrypt(client.type!)
+          }
+        this.clientsService.updateClient(cryptClient).subscribe(res => {
+          console.log(res)
+        }, error => {
+          console.error(error);
+        })
+      }
+      })
+    })
+  }
 }

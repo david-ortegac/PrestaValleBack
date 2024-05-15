@@ -42,7 +42,7 @@ export class LoansComponent implements OnInit {
   routes: Route[] = [];
   loans: Loan[] = []
   form: FormGroup;
-  selectedRouteItem: Route | undefined
+  selectedRouteItem: Route | undefined;
   currentDate: string = "";
 <<<<<<< HEAD
 =======
@@ -90,7 +90,6 @@ export class LoansComponent implements OnInit {
     this.myGroup = this.fb.group({
       selectedRouteItem: new FormControl('')
     });
-    this.getAllRoutes();
   }
 
   get loansFormArray() {
@@ -101,16 +100,17 @@ export class LoansComponent implements OnInit {
     return this.fb.group({
       nro: new FormControl('', [Validators.required]),
       nombres: new FormControl('', [Validators.required]),
-      monto: new FormControl('', [Validators.required]),
-      cobroDiario: new FormControl('', [Validators.required]),
-      diasCredito: new FormControl('', [Validators.required]),
-      valorAbono: new FormControl('', [Validators.required]),
-      pico: new FormControl('', [Validators.required]),
+      monto: new FormControl(0, [Validators.required]),
+      cobroDiario: new FormControl(0, [Validators.required]),
+      diasCredito: new FormControl(0, [Validators.required]),
+      valorAbono: new FormControl(0, [Validators.required]),
+      pico: new FormControl(0, [Validators.required]),
       fechaPago: new FormControl('', [Validators.required]),
-      diasMora: new FormControl('', [Validators.required]),
-      saldo: new FormControl('', [Validators.required]),
-      cuotas: new FormControl('', [Validators.required]),
-    })
+      diasMora: new FormControl(0, [Validators.required]),
+      saldo: new FormControl(0, [Validators.required]),
+      cuotas: new FormControl(0, [Validators.required]),
+      status: new FormControl(true, [Validators.required]),
+    });
   }
 
   addLoans() {
@@ -129,34 +129,26 @@ export class LoansComponent implements OnInit {
     const today = new Date();
     today.setMonth(today.getMonth() + 1)
     this.currentDate = today.getMonth() + '/' + today.getDate() + '/' + today.getFullYear();
+    this.getAllRoutes();
   }
 
-  getAllLoansByRouteId(id: number | undefined) {
-    this.loansService.getLoansByRouteId(id).subscribe(res => {
-      console.log(res.data)
-      res.data.forEach(el => {
-        const loansFromBack: FormGroup = this.fb.group({
-          nro: new FormControl(el.order),
-          nombres: new FormControl(decrypt(el.client?.last_name!) + ", " + decrypt(el.client?.name!)),
-          monto: new FormControl(el.amount),
-          cobroDiario: new FormControl(el.paymentType),
-          diasCredito: new FormControl(el.paymentDays),
-          valorAbono: new FormControl(el.deposit),
-          pico: new FormControl(''),
-          fechaPago: new FormControl(this.selectedDate),
-          diasMora: new FormControl(el.daysPastDue),
-          saldo: new FormControl(''),
-          cuotas: new FormControl(''),
-        })
-        this.loansFormArray.push(loansFromBack);
-      })
-    });
+  openSearchByDocument() {
+    this.search = true;
+    console.log(this.search);
+  }
+
+  closeSearchByDocument() {
+    this.search = false;
+  }
+
+  dateChanged(event: Date) {
+    this.selectedDate = event;
   }
 
   getAllRoutes() {
     this.routesService.getAllRoutesWithoutPaged().subscribe(res => {
       res.forEach(el => {
-        const routeDecrypt = {
+        const routeDecrypt:Route = {
           id: el.id,
           name: decrypt(el.name!),
           sede: {
@@ -215,16 +207,8 @@ export class LoansComponent implements OnInit {
   }
 >>>>>>> 8369093 (inicio)
 
-  openSearchByDocument() {
-    this.search = true;
-    console.log(this.search);
-  }
-
-  closeSearchByDocument() {
-    this.search = false;
-  }
-
   selectedRoute(event: DropdownChangeEvent) {
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 =======
@@ -246,6 +230,63 @@ export class LoansComponent implements OnInit {
 =======
     this.selectedDate = event;
 >>>>>>> 7bac5d3 (ajustes loans formarray)
+=======
+    this.loansFormArray.clear()
+    this.loans = [];
+
+    if(event.value!=null){
+      this.selectedRouteItem = event.value as Route;
+      this.getAllLoansByRouteId(event.value.id!);
+    }
+  }
+
+  getAllLoansByRouteId(id: number) {
+    this.loansService.getLoansByRouteId(id).subscribe(res => {
+      res.data.forEach(el => {
+        let status: boolean = el.status == true;
+        const loansFromBack: FormGroup = this.fb.group({
+          nro: new FormControl(el.order),
+          nombres: new FormControl(decrypt(el.client?.name!) + " " + decrypt(el.client?.last_name!)),
+          monto: new FormControl(el.amount),
+          cobroDiario: new FormControl(el.dailyPayment),
+          diasCredito: new FormControl(el.daysToPay),
+          valorAbono: new FormControl(el.deposit),
+          pico: new FormControl(el.pico),
+          fechaPago: new FormControl(this.selectedDate),
+          diasMora: new FormControl(el.daysPastDue),
+          saldo: new FormControl(el.balance),
+          cuotas: new FormControl(el.dues),
+          status: new FormControl(status),
+        })
+
+        loansFromBack.controls['nombres'].disable();
+        loansFromBack.controls['monto'].disable();
+        loansFromBack.controls['cobroDiario'].disable();
+        loansFromBack.controls['diasCredito'].disable();
+        loansFromBack.controls['pico'].disable();
+        loansFromBack.controls['fechaPago'].disable();
+        loansFromBack.controls['diasMora'].disable();
+        loansFromBack.controls['saldo'].disable();
+        loansFromBack.controls['cuotas'].disable();
+        loansFromBack.controls['status'].disable();
+        if(loansFromBack.controls['status'].value == 0){
+          loansFromBack.controls['nro'].disable();
+          loansFromBack.controls['valorAbono'].disable();
+        }
+
+        this.loansFormArray.push(loansFromBack);
+      })
+    });
+  }
+
+
+  reencauche(index: number) {
+    this.loansFormArray.at(index).get('monto')?.enable();
+    this.loansFormArray.at(index).get('cobroDiario')?.enable();
+    this.loansFormArray.at(index).get('diasCredito')?.enable();
+    this.loansFormArray.at(index).get('nro')?.enable();
+    this.loansFormArray.at(index).get('valorAbono')?.enable();
+>>>>>>> 8df4154 (ajustes loans front)
   }
 
 }

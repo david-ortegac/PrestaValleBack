@@ -8,16 +8,17 @@
           <p-dropdown
             (onChange)="selectedRoute($event)"
             [options]="routes"
-            optionLabel="name"
             [(ngModel)]="selectedRouteItem"
+            optionLabel="name"
             [showClear]="true"
             [filter]="true"
             filterBy="name"
             placeholder="Seleccione una ruta"
             inputId="float-label"
           />
-          <label id="select-label">Seleccione una ruta</label>
+          <label id="float-label">Seleccione una ruta</label>
         </p-floatLabel>
+
       </div>
       <div class="col-sm-6 mt-3">
         <div class="h4" *ngIf="selectedRouteItem">
@@ -291,8 +292,8 @@
           <p-calendar
             (onSelect)="dateChanged($event)"
             [(ngModel)]="currentDate"
-            id="current-date"/>
-          <label for="current-date">Fecha Planilla</label>
+            inputId="current-date"/>
+          <label id="current-date">Fecha Planilla</label>
         </p-floatLabel>
 >>>>>>> 7bac5d3 (ajustes loans formarray)
       </div>
@@ -344,10 +345,11 @@
             <th>Días Crédito</th>
             <th>Valor Abono</th>
             <th>Pico</th>
-            <th>Fecha Pago</th>
             <th>Días Mora</th>
             <th>Saldo</th>
             <th>Cuotas</th>
+            <th>Estatus</th>
+            <th>Reencauche</th>
           </tr>
           </thead>
           <tbody formArrayName="loansFormArray">
@@ -367,7 +369,6 @@
             <td>
               <p-inputNumber formControlName="pico" placeholder="Pico"/>
             </td>
-            <td><input type="text" pInputText formControlName="fechaPago" placeholder="Fecha Pago"/></td>
             <td>
               <p-inputNumber formControlName="diasMora" placeholder="Días Mora"/>
             </td>
@@ -377,12 +378,23 @@
             <td>
               <p-inputNumber formControlName="cuotas" placeholder="Cuotas"/>
             </td>
+            <td>
+              <p-toggleButton
+                formControlName="status"
+                onLabel="Activo"
+                offLabel="Inactivo"/>
+            </td>
+            <td>
+              <button class="btn btn-info" (click)="reencauche(i)"><i class="fa-solid fa-hand-holding-dollar"></i>
+              </button>
+            </td>
           </tr>
           </tbody>
         </table>
-
       </form>
     </p-scrollPanel>
+
+    <button type="submit" (click)="onSubmit()">Enviar</button>
   </div>
 <<<<<<< HEAD
 </div>
