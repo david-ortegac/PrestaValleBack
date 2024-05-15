@@ -9,47 +9,45 @@ use Illuminate\Database\Eloquent\Model;
  *
  * @property $id
  * @property $loan_id
- * @property $employee_id
- * @property $order
- * @property $date
- * @property $pay
- * @property $amount
+ * @property $client_id
+ * @property $generationDate
+ * @property $loandDate
+ * @property $payment
  * @property $created_at
  * @property $updated_at
  *
- * @property Employee $employee
+ * @property Client $client
  * @property Loan $loan
  * @package App
  * @mixin \Illuminate\Database\Eloquent\Builder
  */
 class SpreadSheet extends Model
 {
-
-    static $rules = [
-		'loan_id' => 'required',
-		'order' => 'required',
-		'date' => 'required',
-		'pay' => 'required',
-		'amount' => 'required',
-    ];
-
+    
     protected $perPage = 20;
 
     /**
-     * Attributes that should be mass-assignable.
+     * The attributes that are mass assignable.
      *
-     * @var array
+     * @var array<int, string>
      */
-    protected $fillable = ['loan_id','order','date','pay','amount'];
+    protected $fillable = ['loan_id', 'client_id', 'generationDate', 'loandDate', 'payment'];
 
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function client()
+    {
+        return $this->belongsTo(\App\Models\Client::class, 'client_id', 'id');
+    }
+    
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function loan()
     {
-        return $this->hasOne('App\Models\Loan', 'id', 'loan_id');
+        return $this->belongsTo(\App\Models\Loan::class, 'loan_id', 'id');
     }
-
-
+    
 }

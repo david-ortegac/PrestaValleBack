@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Facades\Date;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Loans>
@@ -28,17 +29,20 @@ class LoanFactory extends Factory
 >>>>>>> ce2e761 (Ajustes loans front y back)
             'client_id' => $this->faker->numberBetween(1,300),
             'order' => $this->faker->numberBetween(1, 30),
-            'amount' => $this->faker->randomElement(['120000', '180000', '220000', '250000']),
-            'paymentDays' => $this->faker->randomElement(['L-S', 'V', 'L-V']),
-            'paymentType' => $this->faker->randomElement(['9x7', '5x24', '9x25','12x15']),
+            'amount' => $this->faker->randomElement(['100000', '200000', '300000', '150000']),
+            'dailyPayment' => $this->faker->randomElement(['6000','8000','10000','15000']),
+            'daysToPay' => $this->faker->randomElement(['20','25','23','18']),
+            'paymentDays' => $this->faker->randomElement(['*', 'Martes', 'Viernes','Lunes - Jueves', 'Sabado']),
             'deposit' => $this->faker->randomElement(['7', '5', '9', '12','0']),
-            'lastInstallment' => $this->faker->randomElement(['3', '1', '5']),
-            'remainingBalance' => $this->faker->randomElement(['120000', '100000', '50000']),
-            'remainingAmount' => $this->faker->randomElement(['120000', '100000', '50000']),
+            'pico' => $this->faker->randomElement(['7', '5','0']),
+            'date'=> '2024-05-06',
             'daysPastDue' => $this->faker->randomElement(['0', '3', '7']),
+            'balance'=>$this->faker->randomElement(['0', '1', '2', '3', '4', '5', '6', '7']),
+            'dues'=>$this->faker->randomElement(['0', '1', '2', '3', '4', '5', '6', '7']),
             'lastPayment' => '2024-05-06',
             'startDate' => '2024-05-06',
             'finalDate' => '2024-05-30',
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
             'status'=> $this->faker->randomElement(['true', 'false']),
@@ -47,6 +51,9 @@ class LoanFactory extends Factory
 =======
             'status'=> $this->faker->randomElement(['true', 'false']),
 >>>>>>> ce2e761 (Ajustes loans front y back)
+=======
+            'status'=> $this->faker->randomElement(['1', '0']),
+>>>>>>> 561527c (ajustes loand back y model front)
             'created_by' => 1,
             'modified_by' => 1,
         ];

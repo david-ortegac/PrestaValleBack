@@ -22,16 +22,17 @@ return new class extends Migration
             $table->foreignId('route_id')->references('id')->on('routes');
             $table->foreignId('client_id')->references('id')->on('clients');
             $table->integer('order'); //Orden de cobro
-            $table->decimal('amount'); //MONTO
-            $table->string('paymentDays'); //fecha pago
-            $table->string('paymentType'); //tipo de pago diario o mensual (MODALIDAD)
-            $table->bigInteger('deposit'); //Abono diario
-            $table->decimal('lastInstallment'); //ULTIMA CUOTA (PAGO)
-            $table->decimal('remainingBalance'); // si da menos de la cuota (PICO)
-            $table->decimal('remainingAmount'); // saldo restante
-
+            $table->integer('amount'); //MONTO a prestar
+            $table->integer('dailyPayment'); //cuanto paga por dia
+            $table->integer('daysToPay'); //cuantos dias va a pagar
+            $table->string('paymentDays')->default('*'); //dias en los que paga el cliente (reporte)
+            $table->integer('deposit'); //Abono diario
+            $table->integer('pico'); //resta entre el valor del deposito y
+            $table->date('date'); // fecha del pago
             $table->integer('daysPastDue'); // dias de mora
-            $table->date('lastPayment'); // ultimo pago
+            $table->integer('balance'); // salgo a pagar (amount - deposit)
+            $table->integer('dues'); // cuotas pagadas ( solo se valida si paga una cuota de las pactadas en payment days)
+            $table->date('lastPayment'); // fecha ultimo pago
             $table->date('startDate'); // fecha inicio
             $table->date('finalDate'); // fecha final
             $table->boolean('status')->default(true); // estado del credito para reencauche

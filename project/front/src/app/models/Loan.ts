@@ -1,7 +1,7 @@
-import {Route} from "./Route";
-import {Client} from "./Client";
-import {CreatedBy} from "./audit/CreatedBy";
-import {ModifiedBy} from "./audit/ModifiedBy";
+import { CreatedBy } from "./audit/CreatedBy";
+import { ModifiedBy } from "./audit/ModifiedBy";
+import { Client } from "./Client";
+import { Route } from "./Route";
 
 export interface Loan{
   id?: number;
@@ -9,13 +9,15 @@ export interface Loan{
   client?:Client,
   order?:number,
   amount?:number,
+  dailyPayment?: number,
+  daysToPay?:number,
   paymentDays?:string,
-  paymentType?:string,
   deposit?:number,
-  lastInstallment?:Date,
-  remainingBalance?:number,
-  remainingAmount?:number,
+  pico?:number,
+  date?:Date,
   daysPastDue?:number,
+  balance?:number,
+  dues?:number,
   lastPayment?:Date,
   startDate?:Date,
   finalDate?:Date,
