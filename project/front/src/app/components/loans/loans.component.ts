@@ -6,11 +6,12 @@ import {Component, OnInit} from '@angular/core';
 import {ClientsService} from "../../services/clients/clients.service";
 import {RoutesService} from "../../services/routes/routes.service";
 import {Route} from "../../models/Route";
-import {decrypt} from "../../utils/util-encrypt";
+import {decrypt, encrypt} from "../../utils/util-encrypt";
 import {FormArray, FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {DropdownChangeEvent} from "primeng/dropdown";
 import {LoansService} from "../../services/loans/loans.service";
 import {Loan} from "../../models/Loan";
+<<<<<<< HEAD
 <<<<<<< HEAD
 =======
 import {Component} from '@angular/core';
@@ -28,6 +29,9 @@ import {DropdownChangeEvent} from "primeng/dropdown";
 >>>>>>> d8914f2 (ajustes)
 =======
 >>>>>>> ce2e761 (Ajustes loans front y back)
+=======
+import {Client} from "../../models/Client";
+>>>>>>> 70fa6c1 (ajustes encriptado)
 
 @Component({
   selector: 'app-loans',
@@ -66,10 +70,16 @@ export class LoansComponent implements OnInit {
 =======
   selectedDate: Date = new Date();
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> 7bac5d3 (ajustes loans formarray)
 =======
   myGroup: FormGroup;
 >>>>>>> 92061b0 (ajustes varios loans front y back loans.component.ts)
+=======
+  formSearchClient: FormGroup;
+  myGroup: FormGroup;
+  client: Client | undefined
+>>>>>>> 70fa6c1 (ajustes encriptado)
 
   constructor(
     private readonly clientsService: ClientsService,
@@ -84,6 +94,9 @@ export class LoansComponent implements OnInit {
     private fb: FormBuilder
 >>>>>>> 7bac5d3 (ajustes loans formarray)
   ) {
+    this.formSearchClient = new FormGroup({
+      clientDocument: new FormControl('', [Validators.min(3), Validators.required]),
+    })
     this.form = new FormGroup({
       loansFormArray: new FormArray([])
     });
@@ -133,8 +146,11 @@ export class LoansComponent implements OnInit {
   }
 
   openSearchByDocument() {
-    this.search = true;
-    console.log(this.search);
+    console.log(this.formSearchClient.get('clientDocument')?.value);
+    this.clientsService.getClientByDocumentNumber(encrypt(String(this.formSearchClient.get('clientDocument')?.value))).subscribe(res=>{
+      this.client = res;
+      console.log(res);
+    })
   }
 
   closeSearchByDocument() {

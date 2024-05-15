@@ -130,4 +130,19 @@ export class RoutesComponent {
     this.getAllRoutes(page)
   }
 
+  encrypt(){
+    this.routes.forEach(el=>{
+     let newRoute:Route={
+       id: el.id,
+       name: encrypt(el.name!),
+       sede:{
+         id: el.sede?.id,
+       }
+     }
+     this.routesService.updateRoute(newRoute).subscribe(res=>{
+       console.log(res);
+     })
+    })
+  }
+
 }

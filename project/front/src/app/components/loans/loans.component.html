@@ -299,16 +299,19 @@
       </div>
     </div>
 
-    <div class="row" *ngIf="false">
-      <div class="col-sm-4">
-        <input type="text" class="form-control" placeholder="Buscar por número de documento"
-               aria-label="Buscar por ID" aria-describedby="button-buscar">
+    <form [formGroup]="formSearchClient">
+      <div class="row">
+        <div class="col-sm-4 mb-3">
+
+          <label>Digite el número de documento del cliente</label>
+          <p-inputNumber
+            inputId="integeronly" formControlName="clientDocument" />
+
+          <button class="btn btn-success m-lg-3" [disabled]="!formSearchClient.valid" (click)="openSearchByDocument()" type="button">Buscar
+          </button>
+        </div>
       </div>
-      <div class="col-sm-4">
-        <button class="btn btn-outline-secondary" (click)="openSearchByDocument()" type="button">Buscar
-        </button>
-      </div>
-    </div>
+    </form>
 
     <ng-container class="col-mb-12" *ngIf="search">
       <span>Este texto es cualquiera</span>

@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Login } from 'src/app/models/Login';
 import { User } from 'src/app/models/User';
-import { decrypt } from 'src/app/utils/util-encrypt';
+import {decrypt, encrypt} from 'src/app/utils/util-encrypt';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
@@ -28,7 +28,9 @@ export class LoginService {
   }
 
   login(login: Login): Observable<User> {
+    console.log(encrypt(this.tk));
     console.log(this.tk);
+    console.log(decrypt(this.tk));
     return this.httpClient.post<User>(this.url + 'login', login);
   }
 

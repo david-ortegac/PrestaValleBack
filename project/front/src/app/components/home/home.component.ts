@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {ProfileService} from "../../services/profile/profile.service";
 import {Router} from "@angular/router";
 import Swal from "sweetalert2";
+import {decrypt} from "../../utils/util-encrypt";
 
 @Component({
   selector: 'app-home',
@@ -31,6 +32,7 @@ export class HomeComponent implements OnInit {
         timer: 1500
       });
     });
+
   }
 
-}
+  }

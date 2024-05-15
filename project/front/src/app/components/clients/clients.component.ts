@@ -209,4 +209,6 @@ export class ClientsComponent {
       })
     })
   }
+
+  protected readonly encrypt = encrypt;
 }

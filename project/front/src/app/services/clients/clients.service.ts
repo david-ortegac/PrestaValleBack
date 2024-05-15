@@ -47,6 +47,7 @@ export class ClientsService {
   }
 
   getClientByDocumentNumber(documentNumber: string): Observable<Client> {
+    this.validateAndDecryptToken();
     return this.httpClient.get<Client>(this.url + 'clientes/search_by_document/' + documentNumber, {
       headers: {
         'Content-Type': 'application/json',
