@@ -154,6 +154,7 @@ class Loan extends Model
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
         return $this->belongsTo(\App\Models\Route::class, 'route_id', 'id')
             ->select(array('id', 'name'));
 =======
@@ -166,6 +167,10 @@ class Loan extends Model
 =======
         return $this->belongsTo(\App\Models\Route::class, 'route_id', 'id');
 >>>>>>> 561527c (ajustes loand back y model front)
+=======
+        return $this->belongsTo(\App\Models\Route::class, 'route_id', 'id')
+            ->select(array('id', 'name'));
+>>>>>>> 5849ae8 (ajustes back)
     }
 
     /**

@@ -16,6 +16,13 @@ class LoansController extends Controller
     {
         $loans = Loan::paginate();
 
+        foreach ($loans as $loan) {
+            $loan->route = $loan->route;
+            $loan->client = $loan->client;
+            $loan->created_by = $loan->createdBy;
+            $loan->modified_by = $loan->modifiedBy;
+        }
+
         return response()->json($loans, Response::HTTP_OK);
     }
 
@@ -32,7 +39,7 @@ class LoansController extends Controller
      */
     public function show(int $routeId)
     {
-        $loans = Loan::where('route_id', $routeId)->orderByDesc('order')->get();
+        $loans = Loan::where('route_id', $routeId)->orderBy('order')->orderBy('status')->get();
         $count = $loans->count();
 
         if (isset($loans)) {
