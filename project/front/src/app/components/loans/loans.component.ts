@@ -120,7 +120,7 @@ export class LoansComponent implements OnInit {
   }
 
   itemLoan() {
-    let nro = 0;
+    let nro;
     if (this.loansFormArray.length > 0) {
       nro = this.loansFormArray.length + 1;
     } else {
