@@ -41,8 +41,12 @@ import {Client} from "../../models/Client";
 <<<<<<< HEAD
 <<<<<<< HEAD
 export class LoansComponent implements OnInit {
+<<<<<<< HEAD
   search: boolean = false;
 <<<<<<< HEAD
+=======
+  searchClient: boolean = false;
+>>>>>>> bb2ed6c (ajuste formarray para new client)
   routes: Route[] = [];
   loans: Loan[] = []
   form: FormGroup;
@@ -79,7 +83,13 @@ export class LoansComponent implements OnInit {
   formSearchClient: FormGroup;
   myGroup: FormGroup;
   client: Client | undefined
+<<<<<<< HEAD
 >>>>>>> 70fa6c1 (ajustes encriptado)
+=======
+  loadingClientByDocumentNumber: boolean = false;
+  loadingDataToFillFormArray: boolean = false;
+  routeSelected: boolean = false;
+>>>>>>> bb2ed6c (ajuste formarray para new client)
 
   constructor(
     private readonly clientsService: ClientsService,
@@ -110,9 +120,16 @@ export class LoansComponent implements OnInit {
   }
 
   itemLoan() {
+    let nro = 0;
+    if (this.loansFormArray.length > 0) {
+      nro = this.loansFormArray.length + 1;
+    } else {
+      nro = 1;
+    }
     return this.fb.group({
-      nro: new FormControl('', [Validators.required]),
-      nombres: new FormControl('', [Validators.required]),
+      nro: new FormControl(nro, [Validators.required]),
+      clientId: new FormControl(this.client?.id),
+      nombres: new FormControl(this.client?.name + ' ' + this.client?.last_name, [Validators.required]),
       monto: new FormControl(0, [Validators.required]),
       cobroDiario: new FormControl(0, [Validators.required]),
       diasCredito: new FormControl(0, [Validators.required]),
@@ -128,6 +145,13 @@ export class LoansComponent implements OnInit {
 
   addLoans() {
     this.loansFormArray.push(this.itemLoan());
+    if (this.loansFormArray.length > 0) {
+      this.loansFormArray.at(this.loansFormArray.length - 1).get('nombres')?.disable()
+      this.loansFormArray.at(this.loansFormArray.length - 1).get('status')?.disable()
+    } else {
+      this.loansFormArray.at(0).get('nombres')?.disable()
+      this.loansFormArray.at(0).get('status')?.disable()
+    }
   }
 
   deleteLoans(indexLoan: number) {
@@ -146,15 +170,22 @@ export class LoansComponent implements OnInit {
   }
 
   openSearchByDocument() {
-    console.log(this.formSearchClient.get('clientDocument')?.value);
-    this.clientsService.getClientByDocumentNumber(encrypt(String(this.formSearchClient.get('clientDocument')?.value))).subscribe(res=>{
-      this.client = res;
-      console.log(res);
+    this.loadingClientByDocumentNumber = true;
+    this.clientsService.getClientByDocumentNumber(encrypt(String(this.formSearchClient.get('clientDocument')?.value))).subscribe(res => {
+      const newClinet: Client = {
+        id: res.id,
+        name: decrypt(res.name!),
+        last_name: decrypt(res.last_name!),
+      }
+      console.log(newClinet)
+      this.client = newClinet;
+      this.searchClient = true
+      this.loadingClientByDocumentNumber = false
     })
   }
 
   closeSearchByDocument() {
-    this.search = false;
+    this.searchClient = false;
   }
 
   dateChanged(event: Date) {
@@ -164,7 +195,7 @@ export class LoansComponent implements OnInit {
   getAllRoutes() {
     this.routesService.getAllRoutesWithoutPaged().subscribe(res => {
       res.forEach(el => {
-        const routeDecrypt:Route = {
+        const routeDecrypt: Route = {
           id: el.id,
           name: decrypt(el.name!),
           sede: {
@@ -250,18 +281,23 @@ export class LoansComponent implements OnInit {
     this.loansFormArray.clear()
     this.loans = [];
 
-    if(event.value!=null){
+    if (event.value != null) {
       this.selectedRouteItem = event.value as Route;
       this.getAllLoansByRouteId(event.value.id!);
     }
+
+    this.routeSelected = true;
   }
 
   getAllLoansByRouteId(id: number) {
+    this.loadingDataToFillFormArray = true;
     this.loansService.getLoansByRouteId(id).subscribe(res => {
+      console.log(res.data)
       res.data.forEach(el => {
         let status: boolean = el.status == true;
         const loansFromBack: FormGroup = this.fb.group({
           nro: new FormControl(el.order),
+          clientId: el.client?.id,
           nombres: new FormControl(decrypt(el.client?.name!) + " " + decrypt(el.client?.last_name!)),
           monto: new FormControl(el.amount),
           cobroDiario: new FormControl(el.dailyPayment),
@@ -285,13 +321,14 @@ export class LoansComponent implements OnInit {
         loansFromBack.controls['saldo'].disable();
         loansFromBack.controls['cuotas'].disable();
         loansFromBack.controls['status'].disable();
-        if(loansFromBack.controls['status'].value == 0){
+        if (loansFromBack.controls['status'].value == 0) {
           loansFromBack.controls['nro'].disable();
           loansFromBack.controls['valorAbono'].disable();
         }
 
         this.loansFormArray.push(loansFromBack);
       })
+      this.loadingDataToFillFormArray = false;
     });
   }
 

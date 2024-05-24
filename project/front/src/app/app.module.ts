@@ -38,6 +38,7 @@ import {FloatLabelModule} from "primeng/floatlabel";
 import {CalendarModule} from "primeng/calendar";
 import {PanelModule} from "primeng/panel";
 import {ToggleButtonModule} from "primeng/togglebutton";
+import {ProgressBarModule} from "primeng/progressbar";
 
 
 @NgModule({
@@ -56,34 +57,35 @@ import {ToggleButtonModule} from "primeng/togglebutton";
     ClientsComponent,
     LoansComponent
   ],
-  imports: [
-    FormsModule,
-    BrowserModule,
-    AppRoutingModule,
-    BrowserAnimationsModule,
-    TableModule,
-    HttpClientModule,
-    InputTextModule,
-    PasswordModule,
-    DropdownModule,
-    ReactiveFormsModule,
-    ScrollPanelModule,
-    PaginatorModule,
-    FloatLabelModule,
-    NgxPaginationModule,
-    ProgressSpinnerModule,
-    ButtonModule,
-    IonicModule.forRoot({}),
-    ServiceWorkerModule.register('ngsw-worker.js', {
-      enabled: !isDevMode(),
-      // Register the ServiceWorker as soon as the application is stable
-      // or after 30 seconds (whichever comes first).
-      registrationStrategy: 'registerWhenStable:30000'
-    }),
-    CalendarModule,
-    PanelModule,
-    ToggleButtonModule,
-  ],
+    imports: [
+        FormsModule,
+        BrowserModule,
+        AppRoutingModule,
+        BrowserAnimationsModule,
+        TableModule,
+        HttpClientModule,
+        InputTextModule,
+        PasswordModule,
+        DropdownModule,
+        ReactiveFormsModule,
+        ScrollPanelModule,
+        PaginatorModule,
+        FloatLabelModule,
+        NgxPaginationModule,
+        ProgressSpinnerModule,
+        ButtonModule,
+        IonicModule.forRoot({}),
+        ServiceWorkerModule.register('ngsw-worker.js', {
+            enabled: !isDevMode(),
+            // Register the ServiceWorker as soon as the application is stable
+            // or after 30 seconds (whichever comes first).
+            registrationStrategy: 'registerWhenStable:30000'
+        }),
+        CalendarModule,
+        PanelModule,
+        ToggleButtonModule,
+        ProgressBarModule,
+    ],
   providers: [],
   bootstrap: [AppComponent]
 })
