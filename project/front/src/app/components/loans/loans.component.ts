@@ -148,9 +148,17 @@ export class LoansComponent implements OnInit {
     if (this.loansFormArray.length > 0) {
       this.loansFormArray.at(this.loansFormArray.length - 1).get('nombres')?.disable()
       this.loansFormArray.at(this.loansFormArray.length - 1).get('status')?.disable()
+      this.loansFormArray.at(this.loansFormArray.length - 1).get('pico')?.disable()
+      this.loansFormArray.at(this.loansFormArray.length - 1).get('diasMora')?.disable()
+      this.loansFormArray.at(this.loansFormArray.length - 1).get('saldo')?.disable()
+      this.loansFormArray.at(this.loansFormArray.length - 1).get('cuotas')?.disable()
     } else {
       this.loansFormArray.at(0).get('nombres')?.disable()
       this.loansFormArray.at(0).get('status')?.disable()
+      this.loansFormArray.at(0).get('pico')?.disable()
+      this.loansFormArray.at(0).get('diasMora')?.disable()
+      this.loansFormArray.at(0).get('saldo')?.disable()
+      this.loansFormArray.at(0).get('cuotas')?.disable()
     }
   }
 
