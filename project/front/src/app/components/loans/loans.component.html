@@ -329,7 +329,7 @@
         </button>
       </div>
       <div class="col-sm-3">
-        <button type="button" class="btn btn-primary" (click)="addLoans()">
+        <button type="button" class="btn btn-primary" (click)="addLoans()" [disabled]="!loansFormArray">
           Agregar
         </button>
       </div>
@@ -348,6 +348,7 @@
             <th>Días Crédito</th>
             <th>Valor Abono</th>
             <th>Pico</th>
+            <th>Último Pago</th>
             <th>Días Mora</th>
             <th>Saldo</th>
             <th>Cuotas</th>
@@ -374,6 +375,9 @@
             </td>
             <td>
               <p-inputNumber formControlName="pico" placeholder="Pico"/>
+            </td>
+            <td>
+              <p-inputNumber formControlName="fechaPago" placeholder="Pico"/>
             </td>
             <td>
               <p-inputNumber formControlName="diasMora" placeholder="Días Mora"/>

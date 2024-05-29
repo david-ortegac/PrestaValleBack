@@ -126,6 +126,7 @@ export class LoansComponent implements OnInit {
     } else {
       nro = 1;
     }
+
     return this.fb.group({
       nro: new FormControl(nro, [Validators.required]),
       clientId: new FormControl(this.client?.id),
@@ -135,7 +136,7 @@ export class LoansComponent implements OnInit {
       diasCredito: new FormControl(0, [Validators.required]),
       valorAbono: new FormControl(0, [Validators.required]),
       pico: new FormControl(0, [Validators.required]),
-      fechaPago: new FormControl('', [Validators.required]),
+      fechaPago: new FormControl(new Date(), [Validators.required]),
       diasMora: new FormControl(0, [Validators.required]),
       saldo: new FormControl(0, [Validators.required]),
       cuotas: new FormControl(0, [Validators.required]),
