@@ -33,6 +33,7 @@ import {DropdownChangeEvent} from "primeng/dropdown";
 import {Client} from "../../models/Client";
 >>>>>>> 70fa6c1 (ajustes encriptado)
 
+
 @Component({
   selector: 'app-loans',
   templateUrl: './loans.component.html',
@@ -104,14 +105,14 @@ export class LoansComponent implements OnInit {
     private fb: FormBuilder
 >>>>>>> 7bac5d3 (ajustes loans formarray)
   ) {
+    this.myGroup = this.fb.group({
+      selectedRouteItem: new FormControl('')
+    });
     this.formSearchClient = new FormGroup({
       clientDocument: new FormControl('', [Validators.min(3), Validators.required]),
     })
     this.form = new FormGroup({
       loansFormArray: new FormArray([])
-    });
-    this.myGroup = this.fb.group({
-      selectedRouteItem: new FormControl('')
     });
   }
 
@@ -136,7 +137,7 @@ export class LoansComponent implements OnInit {
       diasCredito: new FormControl(0, [Validators.required]),
       valorAbono: new FormControl(0, [Validators.required]),
       pico: new FormControl(0, [Validators.required]),
-      fechaPago: new FormControl(new Date(), [Validators.required]),
+      fechaPago: new FormControl(this.currentDate, [Validators.required]),
       diasMora: new FormControl(0, [Validators.required]),
       saldo: new FormControl(0, [Validators.required]),
       cuotas: new FormControl(0, [Validators.required]),
@@ -186,7 +187,6 @@ export class LoansComponent implements OnInit {
         name: decrypt(res.name!),
         last_name: decrypt(res.last_name!),
       }
-      console.log(newClinet)
       this.client = newClinet;
       this.searchClient = true
       this.loadingClientByDocumentNumber = false
@@ -301,7 +301,6 @@ export class LoansComponent implements OnInit {
   getAllLoansByRouteId(id: number) {
     this.loadingDataToFillFormArray = true;
     this.loansService.getLoansByRouteId(id).subscribe(res => {
-      console.log(res.data)
       res.data.forEach(el => {
         let status: boolean = el.status == true;
         const loansFromBack: FormGroup = this.fb.group({
@@ -313,7 +312,7 @@ export class LoansComponent implements OnInit {
           diasCredito: new FormControl(el.daysToPay),
           valorAbono: new FormControl(el.deposit),
           pico: new FormControl(el.pico),
-          fechaPago: new FormControl(this.selectedDate),
+          fechaPago: new FormControl(el.date),
           diasMora: new FormControl(el.daysPastDue),
           saldo: new FormControl(el.balance),
           cuotas: new FormControl(el.dues),
@@ -341,7 +340,6 @@ export class LoansComponent implements OnInit {
     });
   }
 
-
   reencauche(index: number) {
     this.loansFormArray.at(index).get('monto')?.enable();
     this.loansFormArray.at(index).get('cobroDiario')?.enable();
@@ -349,6 +347,52 @@ export class LoansComponent implements OnInit {
     this.loansFormArray.at(index).get('nro')?.enable();
     this.loansFormArray.at(index).get('valorAbono')?.enable();
 >>>>>>> 8df4154 (ajustes loans front)
+  }
+
+  nuevoMonto(index: number) {
+    let cobroDiario = this.loansFormArray.at(index).get('cobroDiario')?.value;
+    let diasCredito = this.loansFormArray.at(index).get('diasCredito')?.value;
+    let saldo = cobroDiario * diasCredito;
+    this.loansFormArray.at(index).get('saldo')?.setValue(saldo);
+  }
+
+  valorAbonado(index: number) {
+    let valorAbonado = this.loansFormArray.at(index).get('valorAbono')?.value;
+    if (valorAbonado > 0 || valorAbonado != null) {
+      this.loansFormArray.at(index).get('saldo')?.setValue(this.saldoInicial - valorAbonado);
+    } else {
+      this.loansFormArray.at(index).get('saldo')?.setValue(this.saldoInicial);
+    }
+
+    this.calcularPico(index);
+
+  }
+
+  calcularPico(index: number) {
+    let valorAbonado = this.loansFormArray.at(index).get('valorAbono')?.value;
+    let cobroDiario = this.loansFormArray.at(index).get('cobroDiario')?.value;
+    let pico = this.loansFormArray.at(index).get('pico')?.value;
+
+    //Cambia el valor de las moras existentes
+    if ((valorAbonado + pico) == cobroDiario) {
+      this.loansFormArray.at(index).get('pico')?.setValue(0);
+      this.loansFormArray.at(index).get('diasMora')?.setValue(0);
+    } else if ((valorAbonado + pico) > cobroDiario) {
+      this.loansFormArray.at(index).get('pico')?.setValue(0);
+      this.loansFormArray.at(index).get('diasMora')?.setValue(0);
+
+    } else if ((valorAbonado + pico) < cobroDiario) {
+      let newDiasMora = this.loansFormArray.at(index).get('diasMora')?.value;
+      let newPico = cobroDiario - valorAbonado;
+      this.loansFormArray.at(index).get('diasMora')?.setValue(newDiasMora + 1);
+      this.loansFormArray.at(index).get('pico')?.setValue(newPico);
+    }
+  }
+
+  saldoInicial = 0;
+
+  valorSaldo(index: number) {
+    this.saldoInicial = this.loansFormArray.at(index).get('saldo')?.value;
   }
 
 }
