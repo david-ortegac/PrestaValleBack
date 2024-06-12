@@ -1,0 +1,10 @@
+{
+  "appId": "com.prestavalle.app",
+  "appName": "Presta Valle",
+  "webDir": "dist",
+  "plugins": {
+    "SplashScreen": {
+      "launchShowDuration": 0
+    }
+  }
+}

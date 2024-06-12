@@ -1,10 +1,10 @@
 import {isDevMode, NgModule} from '@angular/core';
-import {BrowserModule} from '@angular/platform-browser';
 
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
 import {HttpClientModule} from '@angular/common/http';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import { CommonModule } from "@angular/common";
 
 import {LoginComponent} from './components/login/login.component';
 import {NotFoundComponent} from './components/not-found/not-found.component';
@@ -16,7 +16,6 @@ import {HeaderComponent} from './components/estructura/header/header.component';
 
 //Prime NG
 import {TableModule} from 'primeng/table';
-import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {InputTextModule} from 'primeng/inputtext';
 import {PasswordModule} from 'primeng/password';
 import {ButtonModule} from 'primeng/button';
@@ -31,7 +30,6 @@ import {EmployeesComponent} from './components/employees/employees.component';
 import {ClientsComponent} from './components/clients/clients.component';
 import {IonicModule} from '@ionic/angular';
 import {ServiceWorkerModule} from '@angular/service-worker';
-import {NgxPaginationModule} from 'ngx-pagination';
 import {DropdownModule} from 'primeng/dropdown';
 import {LoansComponent} from "./components/loans/loans.component";
 import {FloatLabelModule} from "primeng/floatlabel";
@@ -55,13 +53,11 @@ import {ProgressBarModule} from "primeng/progressbar";
     RoutesComponent,
     EmployeesComponent,
     ClientsComponent,
-    LoansComponent
+    LoansComponent,
   ],
     imports: [
         FormsModule,
-        BrowserModule,
         AppRoutingModule,
-        BrowserAnimationsModule,
         TableModule,
         HttpClientModule,
         InputTextModule,
@@ -71,7 +67,6 @@ import {ProgressBarModule} from "primeng/progressbar";
         ScrollPanelModule,
         PaginatorModule,
         FloatLabelModule,
-        NgxPaginationModule,
         ProgressSpinnerModule,
         ButtonModule,
         IonicModule.forRoot({}),
@@ -85,8 +80,9 @@ import {ProgressBarModule} from "primeng/progressbar";
         PanelModule,
         ToggleButtonModule,
         ProgressBarModule,
+        CommonModule,
     ],
-  providers: [],
+    providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule {

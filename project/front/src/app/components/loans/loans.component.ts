@@ -31,7 +31,11 @@ import {DropdownChangeEvent} from "primeng/dropdown";
 >>>>>>> ce2e761 (Ajustes loans front y back)
 =======
 import {Client} from "../../models/Client";
+<<<<<<< HEAD
 >>>>>>> 70fa6c1 (ajustes encriptado)
+=======
+import { PanelModule } from 'primeng/panel';
+>>>>>>> aa1f8fb (ajustes para angular 18 e ionic 8)
 
 
 @Component({

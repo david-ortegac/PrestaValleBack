@@ -1,12 +1,9 @@
-import { CapacitorConfig } from '@capacitor/cli';
+import type { CapacitorConfig } from '@capacitor/cli';
 
 const config: CapacitorConfig = {
-  appId: 'com.front',
-  appName: 'front',
-  webDir: 'www/browser',
-  server: {
-    androidScheme: 'https'
-  }
+  appId: 'com.prestavalle.app',
+  appName: 'Presta Valle',
+  webDir: 'www'
 };
 
 export default config;
