@@ -38,6 +38,7 @@ import {CalendarModule} from "primeng/calendar";
 import {PanelModule} from "primeng/panel";
 import {ToggleButtonModule} from "primeng/togglebutton";
 import {ProgressBarModule} from "primeng/progressbar";
+import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 
 
 @NgModule({
@@ -62,6 +63,7 @@ import {ProgressBarModule} from "primeng/progressbar";
     TableModule,
     HttpClientModule,
     BrowserModule,
+    BrowserAnimationsModule,
     InputTextModule,
     PasswordModule,
     DropdownModule,
