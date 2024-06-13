@@ -4,7 +4,8 @@ import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
 import {HttpClientModule} from '@angular/common/http';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import { CommonModule } from "@angular/common";
+import {CommonModule} from "@angular/common";
+import {BrowserModule} from '@angular/platform-browser';
 
 import {LoginComponent} from './components/login/login.component';
 import {NotFoundComponent} from './components/not-found/not-found.component';
@@ -55,34 +56,35 @@ import {ProgressBarModule} from "primeng/progressbar";
     ClientsComponent,
     LoansComponent,
   ],
-    imports: [
-        FormsModule,
-        AppRoutingModule,
-        TableModule,
-        HttpClientModule,
-        InputTextModule,
-        PasswordModule,
-        DropdownModule,
-        ReactiveFormsModule,
-        ScrollPanelModule,
-        PaginatorModule,
-        FloatLabelModule,
-        ProgressSpinnerModule,
-        ButtonModule,
-        IonicModule.forRoot({}),
-        ServiceWorkerModule.register('ngsw-worker.js', {
-            enabled: !isDevMode(),
-            // Register the ServiceWorker as soon as the application is stable
-            // or after 30 seconds (whichever comes first).
-            registrationStrategy: 'registerWhenStable:30000'
-        }),
-        CalendarModule,
-        PanelModule,
-        ToggleButtonModule,
-        ProgressBarModule,
-        CommonModule,
-    ],
-    providers: [],
+  imports: [
+    FormsModule,
+    AppRoutingModule,
+    TableModule,
+    HttpClientModule,
+    BrowserModule,
+    InputTextModule,
+    PasswordModule,
+    DropdownModule,
+    ReactiveFormsModule,
+    ScrollPanelModule,
+    PaginatorModule,
+    FloatLabelModule,
+    ProgressSpinnerModule,
+    ButtonModule,
+    IonicModule.forRoot({}),
+    ServiceWorkerModule.register('ngsw-worker.js', {
+      enabled: !isDevMode(),
+      // Register the ServiceWorker as soon as the application is stable
+      // or after 30 seconds (whichever comes first).
+      registrationStrategy: 'registerWhenStable:30000'
+    }),
+    CalendarModule,
+    PanelModule,
+    ToggleButtonModule,
+    ProgressBarModule,
+    CommonModule,
+  ],
+  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule {
