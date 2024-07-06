@@ -55,10 +55,6 @@ class Loan extends Model
      *
      * @var array<int, string>
      */
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> ce2e761 (Ajustes loans front y back)
     protected $fillable = [
         'route_id',
         'client_id',
@@ -80,12 +76,6 @@ class Loan extends Model
         'created_by',
         'modified_by'
     ];
-<<<<<<< HEAD
-=======
-    protected $fillable = ['route_id', 'client_id', 'amount', 'paymentDays', 'paymentType', 'deposit', 'lastInstallment', 'remainingBalance', 'remainingAmount', 'daysPastDue', 'lastPayment', 'startDate', 'finalDate', 'created_by', 'modified_by'];
->>>>>>> d8914f2 (ajustes)
-=======
->>>>>>> ce2e761 (Ajustes loans front y back)
 
 
     /**
@@ -93,21 +83,7 @@ class Loan extends Model
      */
     public function client()
     {
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-        return $this->belongsTo(\App\Models\Client::class, 'client_id', 'id')
-            ->select(array('id', 'name', 'last_name'));
-=======
         return $this->belongsTo(\App\Models\Client::class, 'client_id', 'id');
->>>>>>> d8914f2 (ajustes)
-=======
-        return $this->belongsTo(\App\Models\Client::class, 'client_id', 'id')
-            ->select(array('id', 'name', 'last_name'));
->>>>>>> ce2e761 (Ajustes loans front y back)
-=======
-        return $this->belongsTo(\App\Models\Client::class, 'client_id', 'id');
->>>>>>> 561527c (ajustes loand back y model front)
     }
 
     /**
@@ -115,17 +91,8 @@ class Loan extends Model
      */
     public function createdBy(): BelongsTo
     {
-<<<<<<< HEAD
-<<<<<<< HEAD
         return $this->belongsTo(\App\Models\User::class, 'created_by', 'id')
             ->select(array('name', 'email'));
-=======
-        return $this->belongsTo(\App\Models\User::class, 'created_by', 'id');
->>>>>>> d8914f2 (ajustes)
-=======
-        return $this->belongsTo(\App\Models\User::class, 'created_by', 'id')
-            ->select(array('name', 'email'));
->>>>>>> ce2e761 (Ajustes loans front y back)
     }
 
     /**
@@ -133,17 +100,8 @@ class Loan extends Model
      */
     public function modifiedBy(): BelongsTo
     {
-<<<<<<< HEAD
-<<<<<<< HEAD
         return $this->belongsTo(\App\Models\User::class, 'modified_by', 'id')
             ->select(array('name', 'email'));
-=======
-        return $this->belongsTo(\App\Models\User::class, 'modified_by', 'id');
->>>>>>> d8914f2 (ajustes)
-=======
-        return $this->belongsTo(\App\Models\User::class, 'modified_by', 'id')
-            ->select(array('name', 'email'));
->>>>>>> ce2e761 (Ajustes loans front y back)
     }
 
     /**
@@ -151,26 +109,8 @@ class Loan extends Model
      */
     public function route(): BelongsTo
     {
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
         return $this->belongsTo(\App\Models\Route::class, 'route_id', 'id')
             ->select(array('id', 'name'));
-=======
-        return $this->belongsTo(\App\Models\Route::class, 'route_id', 'id');
->>>>>>> d8914f2 (ajustes)
-=======
-        return $this->belongsTo(\App\Models\Route::class, 'route_id', 'id')
-            ->select(array('id', 'name'));
->>>>>>> ce2e761 (Ajustes loans front y back)
-=======
-        return $this->belongsTo(\App\Models\Route::class, 'route_id', 'id');
->>>>>>> 561527c (ajustes loand back y model front)
-=======
-        return $this->belongsTo(\App\Models\Route::class, 'route_id', 'id')
-            ->select(array('id', 'name'));
->>>>>>> 5849ae8 (ajustes back)
     }
 
     /**
