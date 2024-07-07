@@ -9,7 +9,6 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Validation\Rule;
-use Illuminate\Support\Facades\Crypt;
 
 /**
  * Class ClientController

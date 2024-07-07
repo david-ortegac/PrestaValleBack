@@ -62,7 +62,6 @@ class Loan extends Model
         'amount',
         'dailyPayment',
         'daysToPay',
-        'paymentDays',
         'deposit',
         'pico',
         'date',

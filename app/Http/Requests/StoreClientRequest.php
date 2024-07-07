@@ -53,7 +53,6 @@ class StoreClientRequest extends FormRequest
             "document_type" => "El tipo de documento es requerido",
             "document_number" => "El número de documento ingresado ya existe",
             "route_id" => "La ruta es requerida",
-
             "name.required" => "El nombre es requerido",
             "last_name.required" => "El apellido es requerido",
             "phone.required" => "El telefono es requerido",
