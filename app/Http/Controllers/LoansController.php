@@ -144,11 +144,10 @@ class LoansController extends Controller
         $spreadsheet = new Spreadsheet();
         $spreadsheet->loan_id = $loan->id;
         $spreadsheet->client_id = $loan->client_id;
-        $spreadsheet->generationDate = new Date;
         $spreadsheet->loandDate = $loan->date;
         $spreadsheet->payment = $loan->deposit;
-        $spreadsheet->created_at = Auth()->user()->id;
-        $spreadsheet->updated_at = Auth()->user()->id;
+        $spreadsheet->created_by = Auth()->user()->id;
+        $spreadsheet->modified_by = Auth()->user()->id;
 
         $spreadsheet->save();
     }

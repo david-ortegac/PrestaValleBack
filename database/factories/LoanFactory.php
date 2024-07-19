@@ -18,9 +18,9 @@ class LoanFactory extends Factory
     public function definition()
     {
         return [
-            'route_id' => $this->faker->numberBetween(1, 15),
-            'client_id' => $this->faker->numberBetween(1,300),
-            'order' => $this->faker->numberBetween(1, 30),
+            'route_id' => $this->faker->numberBetween(1, 3),
+            'client_id' => $this->faker->numberBetween(1,3),
+            'order' => $this->faker->numberBetween(1, 3),
             'amount' => $this->faker->randomElement(['100000', '200000', '300000', '150000']),
             'dailyPayment' => $this->faker->randomElement(['6000','8000','10000','15000']),
             'daysToPay' => $this->faker->randomElement(['20','25','23','18']),
