@@ -7,8 +7,10 @@ use App\Http\Requests\StoreLoansRequest;
 use App\Http\Requests\UpdateLoansRequest;
 use App\Models\Client;
 use App\Models\Loan;
+use App\Models\SpreadSheet;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Date;
 use Illuminate\Validation\Rule;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -43,6 +45,8 @@ class LoansController extends Controller
 
         $loan->save();
 
+        $this->spreadsheet($loan);
+
         $loan->created_by = $loan->createdBy;
         $loan->modified_by = $loan->modifiedBy;
 
@@ -55,7 +59,7 @@ class LoansController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(int $routeId)
+    public function show(int $routeId): JsonResponse
     {
         $loans = Loan::where('route_id', $routeId)->orderByDesc('status')->orderBy('order')->get();
         $count = $loans->count();
@@ -83,7 +87,7 @@ class LoansController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateLoansRequest $request, Loan $loan)
+    public function update(UpdateLoansRequest $request, Loan $loan): JsonResponse
     {
         $loanUpdate = Loan::find($request->id);
         if(isset($loanUpdate)){
@@ -92,6 +96,8 @@ class LoansController extends Controller
             Rule::unique('loans')->ignore($loanUpdate);
 
             $loanUpdate->save();
+
+            $this->spreadsheet($loanUpdate);
 
             $loanUpdate->created_by = $loan->createdBy;
             $loanUpdate->modified_by = $loan->modifiedBy;
@@ -110,7 +116,7 @@ class LoansController extends Controller
 
     /**
      * @param StoreLoansRequest|Request $request
-     * @param Client $client
+     * @param Loan $loan
      * @return void
      */
     public function extracted(StoreLoansRequest|Request $request, Loan $loan): void
@@ -132,6 +138,19 @@ class LoansController extends Controller
         $loan->startDate = $request->startDate;
         $loan->finalDate = $request->finalDate;
         $loan->status = $request->status;
+    }
+
+    public function spreadsheet(Loan $loan): void{
+        $spreadsheet = new Spreadsheet();
+        $spreadsheet->loan_id = $loan->id;
+        $spreadsheet->client_id = $loan->client_id;
+        $spreadsheet->generationDate = new Date;
+        $spreadsheet->loandDate = $loan->date;
+        $spreadsheet->payment = $loan->deposit;
+        $spreadsheet->created_at = Auth()->user()->id;
+        $spreadsheet->updated_at = Auth()->user()->id;
+
+        $spreadsheet->save();
     }
 
 }

@@ -2,7 +2,9 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
  * Class SpreadSheet
@@ -19,11 +21,11 @@ use Illuminate\Database\Eloquent\Model;
  * @property Client $client
  * @property Loan $loan
  * @package App
- * @mixin \Illuminate\Database\Eloquent\Builder
+ * @mixin Builder
  */
 class SpreadSheet extends Model
 {
-    
+
     protected $perPage = 20;
 
     /**
@@ -35,19 +37,19 @@ class SpreadSheet extends Model
 
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @return BelongsTo
      */
-    public function client()
+    public function client(): BelongsTo
     {
         return $this->belongsTo(\App\Models\Client::class, 'client_id', 'id');
     }
-    
+
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @return BelongsTo
      */
-    public function loan()
+    public function loan(): BelongsTo
     {
         return $this->belongsTo(\App\Models\Loan::class, 'loan_id', 'id');
     }
-    
+
 }
