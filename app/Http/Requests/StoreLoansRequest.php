@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Models\Client;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
@@ -11,6 +12,9 @@ use Symfony\Component\HttpFoundation\Response;
 
 class StoreLoansRequest extends FormRequest
 {
+    public int $order;
+    public Client $client_id;
+
     /**
      * Determine if the user is authorized to make this request.
      */
