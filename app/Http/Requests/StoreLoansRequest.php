@@ -12,8 +12,6 @@ use Symfony\Component\HttpFoundation\Response;
 
 class StoreLoansRequest extends FormRequest
 {
-    public int $order;
-    public Client $client_id;
 
     /**
      * Determine if the user is authorized to make this request.
