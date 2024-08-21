@@ -16,7 +16,7 @@ return new class extends Migration {
             $table->foreignId('client_id')->references('id')->on('clients');
             $table->date('loandDate');
             $table->integer('payment');
-
+            $table->integer('lastDaysPastDue');
             $table->unsignedBigInteger('created_by');
             $table->foreign('created_by')->references('id')->on('users');
             $table->unsignedBigInteger('modified_by');

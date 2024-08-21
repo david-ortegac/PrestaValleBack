@@ -35,7 +35,14 @@ class SpreadSheet extends Model
      *
      * @var array<int, string>
      */
-    protected $fillable = ['loan_id', 'client_id', 'loandDate', 'payment','created_by', 'modified_by',];
+    protected $fillable = [
+        'loan_id',
+        'client_id',
+        'loandDate',
+        'payment',
+        'lastDaysPastDue',
+        'created_by',
+        'modified_by',];
 
 
     /**

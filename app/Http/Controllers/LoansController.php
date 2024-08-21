@@ -168,6 +168,7 @@ class LoansController extends Controller
         $spreadsheet->client_id = $loan->client_id;
         $spreadsheet->loandDate = $loan->date;
         $spreadsheet->payment = $loan->deposit;
+        $spreadsheet->lastDaysPastDue = $loan->daysPastDue;
         $spreadsheet->created_by = Auth()->user()->id;
         $spreadsheet->modified_by = Auth()->user()->id;
 
