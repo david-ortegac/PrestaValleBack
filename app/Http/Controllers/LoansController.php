@@ -44,10 +44,9 @@ class LoansController extends Controller
         $this->loanSave($request, $loan);
         $loan->created_by = Auth()->user()->id;
         $loan->modified_by = Auth()->user()->id;
+        $this->spreadsheetSave($loan);
 
         $loan->save();
-
-        $this->spreadsheetSave($loan);
 
         $loan->created_by = $loan->createdBy;
         $loan->modified_by = $loan->modifiedBy;
@@ -96,12 +95,8 @@ class LoansController extends Controller
             $this->loanUpdate($request, $loan);
             $loan->modified_by = Auth()->User()->id;
             Rule::unique('loans')->ignore($loan);
-
-            $loan->save();
-
-            //return $loan->deposit;
-
             $spreadsheet = $this->spreadsheetUpdate($loan);
+            $loan->save();
 
             return response()->json([
                 'status' => "Credito actualizado con exito",
@@ -182,7 +177,7 @@ class LoansController extends Controller
             ->where('loandDate', $loan->date)
             ->get()
             ->first();
-
+        $spreadsheet->lastDaysPastDue = $loan->daysPastDue;
         $spreadsheet->payment = $loan->deposit;
         $spreadsheet->modified_by = Auth()->user()->id;
 

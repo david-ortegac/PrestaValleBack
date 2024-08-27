@@ -18,6 +18,7 @@ return new class extends Migration
          * @return void
          */
         Schema::create('clients', function (Blueprint $table) {
+            $table->engine = 'InnoDB';
             $table->id();
             $table->string('document_type');
             $table->string('document_number')->unique();

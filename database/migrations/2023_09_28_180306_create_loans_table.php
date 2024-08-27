@@ -18,6 +18,7 @@ return new class extends Migration
          * @return void
          */
         Schema::create('loans', function (Blueprint $table) {
+            $table->engine = 'InnoDB';
             $table->id();
             $table->foreignId('route_id')->references('id')->on('routes');
             $table->foreignId('client_id')->references('id')->on('clients');

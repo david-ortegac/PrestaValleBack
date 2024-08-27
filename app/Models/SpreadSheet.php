@@ -15,6 +15,7 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
  * @property $client_id
  * @property $loandDate
  * @property $payment
+ * @property $lastDaysPastDue
  * @property $created_at
  * @property $updated_at
  *

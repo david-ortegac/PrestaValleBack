@@ -11,6 +11,7 @@ return new class extends Migration {
     public function up(): void
     {
         Schema::create('spread_sheets', function (Blueprint $table) {
+            $table->engine = 'InnoDB';
             $table->id();
             $table->foreignId('loan_id')->references('id')->on('loans');
             $table->foreignId('client_id')->references('id')->on('clients');
