@@ -82,7 +82,7 @@ class Loan extends Model
     /**
      * @return BelongsTo
      */
-    public function client()
+    public function client(): BelongsTo
     {
         return $this->belongsTo(\App\Models\Client::class, 'client_id', 'id');
     }

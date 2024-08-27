@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreClientRequest;
 use App\Http\Requests\UpdateClientRequest;
 use App\Models\Client;
+use App\Models\Route;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -102,6 +103,9 @@ class ClientController extends Controller
     {
         $client = Client::where('document_number', $documentNumber)->first();
         if (isset($client)) {
+            Foreach ($client->loans as $loan){
+                $loan->routes =  Route::find($loan->route_id);
+            }
             $client->created_by = $client->createdBy;
             $client->modified_by = $client->modifiedBy;
             unset($client->created_at);

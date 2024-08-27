@@ -58,9 +58,9 @@ class Route extends Model
     /**
      * @return HasMany
      */
-    public function clients(): HasMany
+    public function loans(): HasMany
     {
-        return $this->hasMany('App\Models\Client', 'route_id', 'id');
+        return $this->hasMany('App\Models\Loan', 'route_id', 'id');
     }
 
 
