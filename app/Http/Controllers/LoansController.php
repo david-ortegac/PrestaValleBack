@@ -38,18 +38,18 @@ class LoansController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreLoansRequest $request): JsonResponse
+    public function store(StoreLoansRequest $request)
     {
         $loan = new Loan();
         $this->loanSave($request, $loan);
         $loan->created_by = Auth()->user()->id;
         $loan->modified_by = Auth()->user()->id;
-        $this->spreadsheetSave($loan);
-
         $loan->save();
 
         $loan->created_by = $loan->createdBy;
         $loan->modified_by = $loan->modifiedBy;
+
+        $this->spreadsheetSave($loan);
 
         return response()->json([
             'status' => "Credito creado con exito",
@@ -95,9 +95,9 @@ class LoansController extends Controller
             $this->loanUpdate($request, $loan);
             $loan->modified_by = Auth()->User()->id;
             Rule::unique('loans')->ignore($loan);
-            $spreadsheet = $this->spreadsheetUpdate($loan);
             $loan->save();
 
+            $spreadsheet = $this->spreadsheetUpdate($loan);
             return response()->json([
                 'status' => "Credito actualizado con exito",
                 'data' => $loan,
