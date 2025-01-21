@@ -19,25 +19,29 @@ use Illuminate\Support\Facades\Route;
 |
  */
 
+ if (!defined('MIDDLEWARE_CONST')) {
+    define('MIDDLEWARE_CONST', 'auth:sanctum');
+}
+
 Route::post('login', [AuthController::class, 'login']);
 Route::post('register', [AuthController::class, 'register']);
 
 
-Route::get('profile', [AuthController::class, 'userProfile'])->middleware(['auth:sanctum']);
-Route::post('logout', [AuthController::class, 'logout'])->middleware(['auth:sanctum']);
+Route::get('profile', [AuthController::class, 'userProfile'])->middleware(MIDDLEWARE_CONST);
+Route::post('logout', [AuthController::class, 'logout'])->middleware(MIDDLEWARE_CONST);
 
-Route::resource('/sedes', SedeController::class)->middleware(['auth:sanctum']);
-Route::get('/sedes_all', [SedeController::class, 'getAll'])->name('sedes.getAll')->middleware(['auth:sanctum']);
+Route::resource('/sedes', SedeController::class)->middleware(MIDDLEWARE_CONST);
+Route::get('/sedes_all', [SedeController::class, 'getAll'])->name('sedes.getAll')->middleware(MIDDLEWARE_CONST);
 
-Route::resource('/routes', RouteController::class)->middleware(['auth:sanctum']);
-Route::get('/routes_all', [RouteController::class, 'getAll'])->name('routes.getAll')->middleware(['auth:sanctum']);
+Route::resource('/routes', RouteController::class)->middleware(MIDDLEWARE_CONST);
+Route::get('/routes_all', [RouteController::class, 'getAll'])->name('routes.getAll')->middleware(MIDDLEWARE_CONST);
 
-Route::resource('/clientes', ClientController::class)->middleware(['auth:sanctum']);
-Route::get('/clientes_all', [ClientController::class, 'getAll'])->name('clients.getAll')->middleware(['auth:sanctum']);
-Route::get('/clientes/search_by_document/{document}', [ClientController::class, 'searchByDocumentNumber'])->name('clients.searchByDocumentNumber')->middleware(['auth:sanctum']);
+Route::resource('/clientes', ClientController::class)->middleware(MIDDLEWARE_CONST);
+Route::get('/clientes_all', [ClientController::class, 'getAll'])->name('clients.getAll')->middleware(MIDDLEWARE_CONST);
+Route::get('/clientes/search_by_document/{document}', [ClientController::class, 'searchByDocumentNumber'])->name('clients.searchByDocumentNumber')->middleware(MIDDLEWARE_CONST);
 
 
-Route::resource('/loans', LoansController::class)->middleware(['auth:sanctum']);
+Route::resource('/loans', LoansController::class)->middleware(MIDDLEWARE_CONST);
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();

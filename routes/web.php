@@ -14,5 +14,5 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return ('welcome');
+    return 'Welcome to Presta Valle Back';
 });

@@ -31,6 +31,16 @@ class SpreadSheet extends Model
 
     protected $perPage = 20;
 
+    public static $rules=[
+        'loan_id' => 'required',
+        'client_id' => 'required',
+        'loandDate' => 'required',
+        'payment' => 'required',
+        'lastDaysPastDue' => 'required',
+        'created_by' => 'required',
+        'modified_by' => 'required',
+    ];
+
     /**
      * The attributes that are mass assignable.
      *

@@ -1,0 +1,1 @@
+sonar-scanner.bat -D"sonar.projectKey=TFM-back" -D"sonar.sources=." -D"sonar.host.url=http://192.168.1.93:9000" -D"sonar.token=sqp_dcc60bf0a79e47a8981aac48137ea636411de6ff"
