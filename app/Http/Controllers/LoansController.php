@@ -186,9 +186,9 @@ class LoansController extends Controller
         return $spreadsheet;
     }
 
-    public function export(Request $request)
+    public function export(int $route_id)
     {
-        $export = Loan::where('route_id', $request->route_id)->orderByDesc('status')->orderBy('order')->get();
+        $export = Loan::where('route_id', $route_id)->orderByDesc('status')->orderBy('order')->get();
 
         foreach ($export as $loan) {
             $loan->route = $loan->route;
