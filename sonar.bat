@@ -1,1 +1,1 @@
-sonar-scanner.bat -D"sonar.projectKey=TFM-back" -D"sonar.sources=." -D"sonar.host.url=http://192.168.1.93:9000" -D"sonar.token=sqp_dcc60bf0a79e47a8981aac48137ea636411de6ff"
+sonar-scanner.bat -D"sonar.projectKey=PrestaValleBack" -D"sonar.sources=." -D"sonar.host.url=http://raspi.local:9000" -D"sonar.token=sqp_eed00dc2c53a0fdae3d01fd8b64c3fc6db2a24a3"

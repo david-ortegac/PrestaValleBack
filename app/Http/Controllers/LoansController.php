@@ -2,19 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\StoreClientRequest;
 use App\Http\Requests\StoreLoansRequest;
 use App\Http\Requests\UpdateLoansRequest;
-use App\Models\Client;
 use App\Models\Loan;
 use App\Models\SpreadSheet;
-use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Date;
 use Illuminate\Validation\Rule;
 use Symfony\Component\HttpFoundation\Response;
-use function Symfony\Component\String\s;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class LoansController extends Controller
 {
