@@ -47,4 +47,4 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('/export-pdf/{id}', [LoansController::class, 'export'])->name('loans.exportPdf');
+Route::get('/export-pdf', [LoansController::class, 'export'])->name('loans.exportPdf');

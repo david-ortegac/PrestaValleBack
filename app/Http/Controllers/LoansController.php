@@ -1,16 +1,15 @@
 <?php
-
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreLoansRequest;
 use App\Http\Requests\UpdateLoansRequest;
 use App\Models\Loan;
 use App\Models\SpreadSheet;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use Symfony\Component\HttpFoundation\Response;
-use Barryvdh\DomPDF\Facade\Pdf;
 
 class LoansController extends Controller
 {
@@ -22,9 +21,9 @@ class LoansController extends Controller
         $loans = Loan::paginate();
 
         foreach ($loans as $loan) {
-            $loan->route = $loan->route;
-            $loan->client = $loan->client;
-            $loan->created_by = $loan->createdBy;
+            $loan->route       = $loan->route;
+            $loan->client      = $loan->client;
+            $loan->created_by  = $loan->createdBy;
             $loan->modified_by = $loan->modifiedBy;
         }
 
@@ -38,18 +37,18 @@ class LoansController extends Controller
     {
         $loan = new Loan();
         $this->loanSave($request, $loan);
-        $loan->created_by = Auth()->user()->id;
+        $loan->created_by  = Auth()->user()->id;
         $loan->modified_by = Auth()->user()->id;
         $loan->save();
 
-        $loan->created_by = $loan->createdBy;
+        $loan->created_by  = $loan->createdBy;
         $loan->modified_by = $loan->modifiedBy;
 
         $this->spreadsheetSave($loan);
 
         return response()->json([
             'status' => "Credito creado con exito",
-            'data' => $loan,
+            'data'   => $loan,
         ], Response::HTTP_CREATED);
     }
 
@@ -63,19 +62,19 @@ class LoansController extends Controller
 
         if (isset($loans)) {
             foreach ($loans as $loan) {
-                $loan->route = $loan->route;
-                $loan->client = $loan->client;
-                $loan->created_by = $loan->createdBy;
+                $loan->route       = $loan->route;
+                $loan->client      = $loan->client;
+                $loan->created_by  = $loan->createdBy;
                 $loan->modified_by = $loan->modifiedBy;
             }
             return response()->json([
                 'total' => $count,
-                'data' => $loans,
+                'data'  => $loans,
             ], Response::HTTP_OK);
         } else {
             return response()->json([
                 'status' => Response::HTTP_BAD_REQUEST,
-                'error' => 'No existen registros para retornar',
+                'error'  => 'No existen registros para retornar',
             ]);
         }
 
@@ -95,14 +94,14 @@ class LoansController extends Controller
 
             $spreadsheet = $this->spreadsheetUpdate($loan);
             return response()->json([
-                'status' => "Credito actualizado con exito",
-                'data' => $loan,
+                'status'      => "Credito actualizado con exito",
+                'data'        => $loan,
                 'spreadsheet' => $spreadsheet,
             ], Response::HTTP_OK);
         } else {
             return response()->json([
                 'status' => Response::HTTP_BAD_REQUEST,
-                'error' => 'No existe el credito para actualizar',
+                'error'  => 'No existe el credito para actualizar',
             ]);
         }
     }
@@ -112,56 +111,56 @@ class LoansController extends Controller
      * @param Loan $loan
      * @return void
      */
-    public function loanSave(StoreLoansRequest|Request $request, Loan $loan): void
+    public function loanSave(StoreLoansRequest | Request $request, Loan $loan): void
     {
-        $loan->route_id = $request->route_id;
-        $loan->client_id = $request->client_id;
-        $loan->order = $request->order;
-        $loan->amount = $request->amount;
+        $loan->route_id     = $request->route_id;
+        $loan->client_id    = $request->client_id;
+        $loan->order        = $request->order;
+        $loan->amount       = $request->amount;
         $loan->dailyPayment = $request->dailyPayment;
-        $loan->daysToPay = $request->daysToPay;
-        $loan->paymentDays = $request->paymentDays;
-        $loan->deposit = $request->deposit;
-        $loan->pico = $request->pico;
-        $loan->date = $request->date;
-        $loan->daysPastDue = $request->daysPastDue;
-        $loan->balance = $request->balance;
-        $loan->dues = $request->dues;
-        $loan->lastPayment = $request->lastPayment;
-        $loan->startDate = $request->startDate;
-        $loan->finalDate = $request->finalDate;
-        $loan->status = $request->status;
+        $loan->daysToPay    = $request->daysToPay;
+        $loan->paymentDays  = $request->paymentDays;
+        $loan->deposit      = $request->deposit;
+        $loan->pico         = $request->pico;
+        $loan->date         = $request->date;
+        $loan->daysPastDue  = $request->daysPastDue;
+        $loan->balance      = $request->balance;
+        $loan->dues         = $request->dues;
+        $loan->lastPayment  = $request->lastPayment;
+        $loan->startDate    = $request->startDate;
+        $loan->finalDate    = $request->finalDate;
+        $loan->status       = $request->status;
     }
 
-    public function loanUpdate(UpdateLoansRequest|Request $request, Loan $loan): void
+    public function loanUpdate(UpdateLoansRequest | Request $request, Loan $loan): void
     {
-        $loan->order = $request->order;
-        $loan->amount = $request->amount;
+        $loan->order        = $request->order;
+        $loan->amount       = $request->amount;
         $loan->dailyPayment = $request->dailyPayment;
-        $loan->daysToPay = $request->daysToPay;
-        $loan->paymentDays = $request->paymentDays;
-        $loan->deposit = $request->deposit;
-        $loan->pico = $request->pico;
-        $loan->date = $request->date;
-        $loan->daysPastDue = $request->daysPastDue;
-        $loan->balance = $request->balance;
-        $loan->dues = $request->dues;
-        $loan->lastPayment = $request->lastPayment;
-        $loan->startDate = $request->startDate;
-        $loan->finalDate = $request->finalDate;
-        $loan->status = $request->status;
+        $loan->daysToPay    = $request->daysToPay;
+        $loan->paymentDays  = $request->paymentDays;
+        $loan->deposit      = $request->deposit;
+        $loan->pico         = $request->pico;
+        $loan->date         = $request->date;
+        $loan->daysPastDue  = $request->daysPastDue;
+        $loan->balance      = $request->balance;
+        $loan->dues         = $request->dues;
+        $loan->lastPayment  = $request->lastPayment;
+        $loan->startDate    = $request->startDate;
+        $loan->finalDate    = $request->finalDate;
+        $loan->status       = $request->status;
     }
 
     public function spreadsheetSave(Loan $loan): void
     {
-        $spreadsheet = new SpreadSheet();
-        $spreadsheet->loan_id = $loan->id;
-        $spreadsheet->client_id = $loan->client_id;
-        $spreadsheet->loandDate = $loan->date;
-        $spreadsheet->payment = $loan->deposit;
+        $spreadsheet                  = new SpreadSheet();
+        $spreadsheet->loan_id         = $loan->id;
+        $spreadsheet->client_id       = $loan->client_id;
+        $spreadsheet->loandDate       = $loan->date;
+        $spreadsheet->payment         = $loan->deposit;
         $spreadsheet->lastDaysPastDue = $loan->daysPastDue;
-        $spreadsheet->created_by = Auth()->user()->id;
-        $spreadsheet->modified_by = Auth()->user()->id;
+        $spreadsheet->created_by      = Auth()->user()->id;
+        $spreadsheet->modified_by     = Auth()->user()->id;
 
         $spreadsheet->save();
     }
@@ -174,29 +173,19 @@ class LoansController extends Controller
             ->get()
             ->first();
         $spreadsheet->lastDaysPastDue = $loan->daysPastDue;
-        $spreadsheet->payment = $loan->deposit;
-        $spreadsheet->modified_by = Auth()->user()->id;
+        $spreadsheet->payment         = $loan->deposit;
+        $spreadsheet->modified_by     = Auth()->user()->id;
 
         $spreadsheet->save();
 
         return $spreadsheet;
     }
 
-    public function export(int $route_id)
+    public function export(Request $request)
     {
-        $export = Loan::where('route_id', $route_id)->orderByDesc('status')->orderBy('order')->get();
-
-        foreach ($export as $loan) {
-            $loan->route = $loan->route;
-            $loan->client = $loan->client;
-            $loan->spreadsheet = SpreadSheet::where('loan_id', $loan->id)
-                ->where('client_id', $loan->client_id)
-                ->where('loandDate', $loan->date)
-                ->get()
-                ->first();
-        }
-
-        return $export;
+        $pdf = Pdf::loadView('pdf', ['loans' => $request->all()])
+        ->setPaper('a4', 'landscape');
+        return $pdf->stream('invoice.pdf');
     }
 
 }
