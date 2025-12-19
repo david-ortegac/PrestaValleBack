@@ -1,1 +1,0 @@
-sonar-scanner.bat -D"sonar.projectKey=PrestaValleBack" -D"sonar.sources=." -D"sonar.host.url=http://raspi.local:9000" -D"sonar.token=sqp_eed00dc2c53a0fdae3d01fd8b64c3fc6db2a24a3"
