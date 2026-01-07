@@ -181,11 +181,163 @@ class LoansController extends Controller
         return $spreadsheet;
     }
 
-    public function export(Request $request)
+    /**
+     * Calcula los totales diarios basados en los días de pago de los préstamos
+     */
+    private function calculateDailyTotals($loans): array
     {
-        $pdf = Pdf::loadView('pdf', ['loans' => $request->all()])
-        ->setPaper('a4', 'landscape');
-        return $pdf->stream('invoice.pdf');
+        $totals = [
+            'lun' => 0,
+            'mar' => 0,
+            'mie' => 0,
+            'jue' => 0,
+            'vie' => 0,
+            'sab' => 0,
+            'dom' => 0,
+        ];
+
+        foreach ($loans as $loan) {
+            $paymentDays  = strtolower($loan->paymentDays ?? '*');
+            $dailyPayment = $loan->dailyPayment ?? 0;
+
+            // Si es '*', suma a todos los días
+            if ($paymentDays === '*' || $paymentDays === '') {
+                foreach ($totals as $day => $value) {
+                    $totals[$day] += $dailyPayment;
+                }
+            } else {
+                // Procesar días específicos
+                if (strpos($paymentDays, 'lunes') !== false || strpos($paymentDays, 'lun') !== false) {
+                    $totals['lun'] += $dailyPayment;
+                }
+                if (strpos($paymentDays, 'martes') !== false || strpos($paymentDays, 'mar') !== false) {
+                    $totals['mar'] += $dailyPayment;
+                }
+                if (strpos($paymentDays, 'miércoles') !== false || strpos($paymentDays, 'miercoles') !== false || strpos($paymentDays, 'mie') !== false) {
+                    $totals['mie'] += $dailyPayment;
+                }
+                if (strpos($paymentDays, 'jueves') !== false || strpos($paymentDays, 'jue') !== false) {
+                    $totals['jue'] += $dailyPayment;
+                }
+                if (strpos($paymentDays, 'viernes') !== false || strpos($paymentDays, 'vie') !== false) {
+                    $totals['vie'] += $dailyPayment;
+                }
+                if (strpos($paymentDays, 'sábado') !== false || strpos($paymentDays, 'sabado') !== false || strpos($paymentDays, 'sab') !== false) {
+                    $totals['sab'] += $dailyPayment;
+                }
+                if (strpos($paymentDays, 'domingo') !== false || strpos($paymentDays, 'dom') !== false) {
+                    $totals['dom'] += $dailyPayment;
+                }
+            }
+        }
+
+        // Calcular total diario (promedio o suma según necesidad)
+        $totals['diario'] = array_sum([
+            $totals['lun'],
+            $totals['mar'],
+            $totals['mie'],
+            $totals['jue'],
+            $totals['vie'],
+            $totals['sab'],
+            $totals['dom'],
+        ]);
+
+        return $totals;
+    }
+
+    public function export(Request $request, ?int $routeId = null)
+    {
+        // Obtener el route_id del request o del parámetro de ruta
+        $routeId = $routeId ?? $request->input('route_id');
+
+        if (! $routeId) {
+            return response()->json([
+                'status' => Response::HTTP_BAD_REQUEST,
+                'error'  => 'El ID de la ruta es requerido',
+            ], Response::HTTP_BAD_REQUEST);
+        }
+
+        // Buscar los préstamos de la ruta con sus relaciones
+        $loans = Loan::where('route_id', $routeId)
+            ->orderByDesc('status')
+            ->orderBy('order')
+            ->with(['route', 'client'])
+            ->get();
+
+        if ($loans->isEmpty()) {
+            return response()->json([
+                'status' => Response::HTTP_NOT_FOUND,
+                'error'  => 'No se encontraron préstamos para la ruta especificada',
+            ], Response::HTTP_NOT_FOUND);
+        }
+
+        // Preparar los datos para la vista
+        $loansData = $loans->map(function ($loan) {
+            $clientName = trim(($loan->client->name ?? '') . ' ' . ($loan->client->last_name ?? ''));
+
+            return [
+                'id'           => $loan->id,
+                'order'        => $loan->order,
+                'amount'       => $loan->amount,
+                'dailyPayment' => $loan->dailyPayment,
+                'daysToPay'    => $loan->daysToPay,
+                'paymentDays'  => $loan->paymentDays,
+                'deposit'      => $loan->deposit,
+                'pico'         => $loan->pico,
+                'date'         => $loan->date,
+                'daysPastDue'  => $loan->daysPastDue,
+                'balance'      => $loan->balance,
+                'dues'         => $loan->dues,
+                'lastPayment'  => $loan->lastPayment,
+                'startDate'    => $loan->startDate,
+                'finalDate'    => $loan->finalDate,
+                'status'       => $loan->status,
+                'route'        => [
+                    'id'   => $loan->route->id ?? null,
+                    'name' => $loan->route->name ?? '',
+                ],
+                'client'       => [
+                    'id'           => $loan->client->id ?? null,
+                    'name'         => $clientName,
+                    'profession'   => $loan->client->profession ?? '',
+                    'address'      => $loan->client->address ?? '',
+                    'neighborhood' => $loan->client->neighborhood ?? '',
+                    'phone'        => $loan->client->phone ?? '',
+                ],
+            ];
+        })->toArray();
+
+        // Calcular totales diarios basados en paymentDays
+        $dailyTotals = $this->calculateDailyTotals($loans);
+
+        // Formatear fecha en español
+        $meses = [
+            'January' => 'Enero', 'February'   => 'Febrero', 'March'      => 'Marzo',
+            'April'   => 'Abril', 'May'        => 'Mayo', 'June'          => 'Junio',
+            'July'    => 'Julio', 'August'     => 'Agosto', 'September'   => 'Septiembre',
+            'October' => 'Octubre', 'November' => 'Noviembre', 'December' => 'Diciembre',
+        ];
+        $generationDate = $request->input('generationDate');
+        if (! $generationDate) {
+            $fecha = date('d F Y');
+            foreach ($meses as $en => $es) {
+                $fecha = str_replace($en, $es, $fecha);
+            }
+            $generationDate = $fecha;
+        }
+
+        // Generar el PDF
+        $pdf = Pdf::loadView('pdf', [
+            'loans'          => $loansData,
+            'generationDate' => $generationDate,
+            'collector'      => $request->input('collector', ''),
+            'dailyTotals'    => $dailyTotals,
+            'pageNumber'     => 1,
+        ])->setPaper('a4', 'landscape');
+
+        $fileName = 'listado_cobro_ruta_' . $routeId . '_' . date('Y-m-d') . '.pdf';
+
+        return $pdf->stream($fileName);
     }
 
 }
