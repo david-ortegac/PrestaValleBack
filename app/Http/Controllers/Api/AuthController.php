@@ -62,6 +62,27 @@ class AuthController extends Controller
         }
     }
 
+    public function validateToken(Request $request): JsonResponse
+    {
+        try {
+            // El middleware de Sanctum ya valida el token
+            // Si llegamos aquí, el token es válido
+            $user = auth()->user();
+            
+        return response()->json([
+            'valid' => true,
+            'user_id' => $user->id,
+            'email' => $user->email,
+        ], Response::HTTP_OK);
+    } catch (\Exception $e) {
+        auth()->user()->tokens()->delete();
+        return response()->json([
+            'valid' => false,
+            'message' => 'Token inválido o expirado'
+        ], Response::HTTP_UNAUTHORIZED);
+    }
+}
+
     public function userProfile()
     {
         return response()->json([

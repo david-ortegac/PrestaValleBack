@@ -26,6 +26,8 @@ if (! defined('MIDDLEWARE_CONST')) {
 Route::post('login', [AuthController::class, 'login']);
 Route::post('register', [AuthController::class, 'register']);
 
+Route::post('validate-token', [AuthController::class, 'validateToken'])->middleware(MIDDLEWARE_CONST);
+
 Route::get('profile', [AuthController::class, 'userProfile'])->middleware(MIDDLEWARE_CONST);
 Route::post('logout', [AuthController::class, 'logout'])->middleware(MIDDLEWARE_CONST);
 
